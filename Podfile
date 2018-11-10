@@ -14,6 +14,7 @@ target 'FA-NOC-iOS' do
     pod 'RxOptional'
     pod 'RxFlow'
     pod 'NSObject+Rx'
+    pod 'RxAlamofire'
 
     pod 'Moya/RxSwift'
     pod 'Kingfisher'
@@ -22,10 +23,13 @@ target 'FA-NOC-iOS' do
 
     pod 'Hero'
     pod 'Hue'
-    pod 'KRProgressHUD'
+    pod 'PKHUD'
+    pod 'SwiftMessages'
     pod 'Atributika'
     pod 'BadgeSwift'
-    pod 'SideMenu'
+    pod 'NewPopMenu'
+    pod 'SkeletonView'
+    pod 'SnapKit'
 
     pod 'AsyncSwift'
     pod 'SwiftDate'

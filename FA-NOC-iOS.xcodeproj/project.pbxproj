@@ -7,9 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		017334692191D40800298AB1 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 017334682191D40800298AB1 /* Splash.storyboard */; };
+		0173346B2191D43200298AB1 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0173346A2191D43200298AB1 /* Setting.storyboard */; };
+		0173346D2191D44D00298AB1 /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0173346C2191D44D00298AB1 /* Notification.storyboard */; };
+		0173346F2191D46200298AB1 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0173346E2191D46200298AB1 /* User.storyboard */; };
+		017334712191D48F00298AB1 /* Submission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 017334702191D48F00298AB1 /* Submission.storyboard */; };
+		017334732191D49900298AB1 /* Note.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 017334722191D49900298AB1 /* Note.storyboard */; };
+		017334772191DD3400298AB1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017334762191DD3400298AB1 /* SplashViewController.swift */; };
+		017334792191DDC900298AB1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017334782191DDC900298AB1 /* LoginViewController.swift */; };
+		0173347C2191E26500298AB1 /* UIBarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173347B2191E26500298AB1 /* UIBarTextField.swift */; };
+		01908877219321250038A4F4 /* UITextFieldExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01908876219321250038A4F4 /* UITextFieldExt.swift */; };
+		01B878AE2196DE1B00DB88E2 /* reCaptcha.js in Resources */ = {isa = PBXBuildFile; fileRef = 01B878AB2196DE1B00DB88E2 /* reCaptcha.js */; };
+		01B878AF2196DE1B00DB88E2 /* ReCaptcha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B878AC2196DE1B00DB88E2 /* ReCaptcha.swift */; };
 		01E6E45B218ECAE40054F0B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6E45A218ECAE40054F0B1 /* AppDelegate.swift */; };
-		01E6E45D218ECAE40054F0B1 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6E45C218ECAE40054F0B1 /* FirstViewController.swift */; };
-		01E6E45F218ECAE40054F0B1 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6E45E218ECAE40054F0B1 /* SecondViewController.swift */; };
 		01E6E462218ECAE40054F0B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01E6E460218ECAE40054F0B1 /* Main.storyboard */; };
 		01E6E464218ECAE60054F0B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01E6E463218ECAE60054F0B1 /* Assets.xcassets */; };
 		01E6E467218ECAE60054F0B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01E6E465218ECAE60054F0B1 /* LaunchScreen.storyboard */; };
@@ -38,10 +48,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		017334682191D40800298AB1 /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
+		0173346A2191D43200298AB1 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		0173346C2191D44D00298AB1 /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
+		0173346E2191D46200298AB1 /* User.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
+		017334702191D48F00298AB1 /* Submission.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Submission.storyboard; sourceTree = "<group>"; };
+		017334722191D49900298AB1 /* Note.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Note.storyboard; sourceTree = "<group>"; };
+		017334762191DD3400298AB1 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		017334782191DDC900298AB1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0173347B2191E26500298AB1 /* UIBarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarTextField.swift; sourceTree = "<group>"; };
+		01908876219321250038A4F4 /* UITextFieldExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExt.swift; sourceTree = "<group>"; };
+		01B878AB2196DE1B00DB88E2 /* reCaptcha.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = reCaptcha.js; sourceTree = "<group>"; };
+		01B878AC2196DE1B00DB88E2 /* ReCaptcha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReCaptcha.swift; sourceTree = "<group>"; };
 		01E6E457218ECAE40054F0B1 /* FA-NOC-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FA-NOC-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		01E6E45A218ECAE40054F0B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		01E6E45C218ECAE40054F0B1 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		01E6E45E218ECAE40054F0B1 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		01E6E461218ECAE40054F0B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		01E6E463218ECAE60054F0B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01E6E466218ECAE60054F0B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -91,6 +111,91 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		017334642191D3A900298AB1 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				01E6E465218ECAE60054F0B1 /* LaunchScreen.storyboard */,
+				017334682191D40800298AB1 /* Splash.storyboard */,
+				01E6E460218ECAE40054F0B1 /* Main.storyboard */,
+				0173346A2191D43200298AB1 /* Setting.storyboard */,
+				0173346C2191D44D00298AB1 /* Notification.storyboard */,
+				0173346E2191D46200298AB1 /* User.storyboard */,
+				017334702191D48F00298AB1 /* Submission.storyboard */,
+				017334722191D49900298AB1 /* Note.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		017334652191D3B400298AB1 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				01B878A92196DDCC00DB88E2 /* Utils */,
+				0190887821932E930038A4F4 /* API */,
+				01908875219320E30038A4F4 /* Extensions */,
+				01E6E45A218ECAE40054F0B1 /* AppDelegate.swift */,
+				0173347A2191E22600298AB1 /* UICustom */,
+				017334672191D3E500298AB1 /* ViewControllers */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		017334662191D3BF00298AB1 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				01E6E468218ECAE60054F0B1 /* Info.plist */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
+		017334672191D3E500298AB1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				017334762191DD3400298AB1 /* SplashViewController.swift */,
+				017334782191DDC900298AB1 /* LoginViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0173347A2191E22600298AB1 /* UICustom */ = {
+			isa = PBXGroup;
+			children = (
+				0173347B2191E26500298AB1 /* UIBarTextField.swift */,
+			);
+			path = UICustom;
+			sourceTree = "<group>";
+		};
+		01908875219320E30038A4F4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				01908876219321250038A4F4 /* UITextFieldExt.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0190887821932E930038A4F4 /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		01B878A92196DDCC00DB88E2 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				01B878AA2196DDDC00DB88E2 /* Recaptcha */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		01B878AA2196DDDC00DB88E2 /* Recaptcha */ = {
+			isa = PBXGroup;
+			children = (
+				01B878AB2196DE1B00DB88E2 /* reCaptcha.js */,
+				01B878AC2196DE1B00DB88E2 /* ReCaptcha.swift */,
+			);
+			path = Recaptcha;
+			sourceTree = "<group>";
+		};
 		01E6E44E218ECAE40054F0B1 = {
 			isa = PBXGroup;
 			children = (
@@ -116,13 +221,10 @@
 		01E6E459218ECAE40054F0B1 /* FA-NOC-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				01E6E45A218ECAE40054F0B1 /* AppDelegate.swift */,
-				01E6E45C218ECAE40054F0B1 /* FirstViewController.swift */,
-				01E6E45E218ECAE40054F0B1 /* SecondViewController.swift */,
-				01E6E460218ECAE40054F0B1 /* Main.storyboard */,
 				01E6E463218ECAE60054F0B1 /* Assets.xcassets */,
-				01E6E465218ECAE60054F0B1 /* LaunchScreen.storyboard */,
-				01E6E468218ECAE60054F0B1 /* Info.plist */,
+				017334662191D3BF00298AB1 /* Info */,
+				017334642191D3A900298AB1 /* Storyboards */,
+				017334652191D3B400298AB1 /* Sources */,
 			);
 			path = "FA-NOC-iOS";
 			sourceTree = "<group>";
@@ -241,6 +343,7 @@
 				TargetAttributes = {
 					01E6E456218ECAE40054F0B1 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					01E6E46C218ECAE60054F0B1 = {
 						CreatedOnToolsVersion = 10.1;
@@ -277,9 +380,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01B878AE2196DE1B00DB88E2 /* reCaptcha.js in Resources */,
+				017334712191D48F00298AB1 /* Submission.storyboard in Resources */,
+				017334692191D40800298AB1 /* Splash.storyboard in Resources */,
+				017334732191D49900298AB1 /* Note.storyboard in Resources */,
 				01E6E467218ECAE60054F0B1 /* LaunchScreen.storyboard in Resources */,
+				0173346B2191D43200298AB1 /* Setting.storyboard in Resources */,
 				01E6E464218ECAE60054F0B1 /* Assets.xcassets in Resources */,
 				01E6E462218ECAE40054F0B1 /* Main.storyboard in Resources */,
+				0173346F2191D46200298AB1 /* User.storyboard in Resources */,
+				0173346D2191D44D00298AB1 /* Notification.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,13 +425,14 @@
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
-				"${BUILT_PRODUCTS_DIR}/KRActivityIndicatorView/KRActivityIndicatorView.framework",
-				"${BUILT_PRODUCTS_DIR}/KRProgressHUD/KRProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework",
+				"${BUILT_PRODUCTS_DIR}/NewPopMenu/PopMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAnimated/RxAnimated.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -331,8 +442,10 @@
 				"${BUILT_PRODUCTS_DIR}/RxKeyboard/RxKeyboard.framework",
 				"${BUILT_PRODUCTS_DIR}/RxOptional/RxOptional.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/WeakableSelf/WeakableSelf.framework",
@@ -347,13 +460,14 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRActivityIndicatorView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSObject_Rx.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAnimated.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
@@ -363,8 +477,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxKeyboard.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxOptional.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WeakableSelf.framework",
@@ -461,9 +577,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01E6E45F218ECAE40054F0B1 /* SecondViewController.swift in Sources */,
+				01908877219321250038A4F4 /* UITextFieldExt.swift in Sources */,
+				01B878AF2196DE1B00DB88E2 /* ReCaptcha.swift in Sources */,
+				017334792191DDC900298AB1 /* LoginViewController.swift in Sources */,
 				01E6E45B218ECAE40054F0B1 /* AppDelegate.swift in Sources */,
-				01E6E45D218ECAE40054F0B1 /* FirstViewController.swift in Sources */,
+				017334772191DD3400298AB1 /* SplashViewController.swift in Sources */,
+				0173347C2191E26500298AB1 /* UIBarTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,13 +688,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -624,12 +744,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -642,7 +763,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8433F85XY6;
-				INFOPLIST_FILE = "FA-NOC-iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/FA-NOC-iOS/Info/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -663,7 +784,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8433F85XY6;
-				INFOPLIST_FILE = "FA-NOC-iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/FA-NOC-iOS/Info/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
