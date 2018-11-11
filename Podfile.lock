@@ -3,16 +3,18 @@ PODS:
   - AsyncSwift (2.0.4)
   - Atributika (4.6.7)
   - BadgeSwift (7.0.0)
-  - DifferenceKit (0.7.2):
-    - DifferenceKit/Core (= 0.7.2)
-    - DifferenceKit/UIKitExtension (= 0.7.2)
-  - DifferenceKit/Core (0.7.2)
-  - DifferenceKit/UIKitExtension (0.7.2):
+  - DifferenceKit (0.8.0):
+    - DifferenceKit/Core (= 0.8.0)
+    - DifferenceKit/UIKitExtension (= 0.8.0)
+  - DifferenceKit/Core (0.8.0)
+  - DifferenceKit/UIKitExtension (0.8.0):
     - DifferenceKit/Core
   - Differentiator (3.1.0)
+  - Floaty (4.1.0)
   - Hero (1.4.0)
   - Hue (3.0.1)
   - Kingfisher (4.10.1)
+  - LGButton (1.0.5)
   - Mockingjay (2.0.1):
     - Mockingjay/Core (= 2.0.1)
     - Mockingjay/XCTest (= 2.0.1)
@@ -84,9 +86,11 @@ DEPENDENCIES:
   - Atributika
   - BadgeSwift
   - DifferenceKit
+  - Floaty
   - Hero
   - Hue
   - Kingfisher
+  - LGButton
   - Mockingjay
   - Moya/RxSwift
   - NewPopMenu
@@ -121,9 +125,11 @@ SPEC REPOS:
     - BadgeSwift
     - DifferenceKit
     - Differentiator
+    - Floaty
     - Hero
     - Hue
     - Kingfisher
+    - LGButton
     - Mockingjay
     - Moya
     - NewPopMenu
@@ -158,11 +164,13 @@ SPEC CHECKSUMS:
   AsyncSwift: 65775a7b32e740609b24969ece3de58723b9dc3e
   Atributika: 01164ef4e8a0103c879f7499a7de8902385d8bf9
   BadgeSwift: 5cfacfad916d85e2f68d93dbb9ade4e9555903da
-  DifferenceKit: 5179eaf0e76a1b9fbaeb93f4c1a82510be63ca65
+  DifferenceKit: edcc9da33f545a49a70eefcf1a5327162cb72eb8
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
+  Floaty: 1a4e213f3512cf3045ef9cb0c1ff456226d1f66a
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
   Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  LGButton: 707ce916eb80b73a6c4688df34bee11adbafb663
   Mockingjay: 11a621880d2887f1775bdcf824341eb68f218450
   Moya: a725035953bc1c0eb1be505ab903984501d82440
   NewPopMenu: 60d67846a401964dcaa51bffb792f04f6fe2fc76
@@ -192,6 +200,6 @@ SPEC CHECKSUMS:
   URITemplate: ace0c4c46dcf8afe6e89b4060621852886b15c3b
   WeakableSelf: cf8239c5dfcb9a37ef1be0bd2dfbdaf2fe89eff1
 
-PODFILE CHECKSUM: a8cabef827912ae618f64c20f6273ee7adf302f2
+PODFILE CHECKSUM: 3a2a20d3412a9896727a02b45ce2e2da0282ab6b
 
 COCOAPODS: 1.5.3

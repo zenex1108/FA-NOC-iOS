@@ -8,19 +8,38 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
+import RxKeyboard
+import LGButton
+import NSObject_Rx
+import RxAnimated
 
-class LoginViewController: UIViewController, ReCaptchaDelegate {
+class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDelegate {
     
     @IBOutlet weak private var recaptchView: ReCaptcha!
     
     @IBOutlet weak private var reCaptchaGuideBasic: UIView!
     @IBOutlet weak private var reCaptchaGuideTest: UIView!
     
+    @IBOutlet weak var usernameTextField: UIBarTextField!
+    @IBOutlet weak var passwordTextField: UIBarTextField!
+    
+    @IBOutlet weak var loginButton: LGButton!
+    @IBOutlet weak var loginButtonBottomConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         recaptchView.delegate = self
-        recaptchView.setupWebView(url: "https://www.furaffinity.net/login")
+//        recaptchView.setupWebView(url: "https://www.furaffinity.net/login")
+        
+        usernameTextField.barDelegate = self
+        passwordTextField.barDelegate = self
+        
+        RxKeyboard.instance.visibleHeight.map{-$0}.asObservable()
+            .bind(to: loginButtonBottomConstraint.rx.animated.layout(duration: 0.25).constant)
+        .disposed(by: rx.disposeBag)
     }
     
     func reCaptchaDidLoad(_ view: UIView) {
@@ -62,4 +81,16 @@ class LoginViewController: UIViewController, ReCaptchaDelegate {
             make.bottom.equalTo(reCaptchaGuideTest)
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UIBarTextField) -> Bool {
+        
+        if textField === usernameTextField {
+            passwordTextField.becomeFirstResponder()
+        }else if textField === passwordTextField {
+            textField.resignFirstResponder()
+        }
+        
+        return false
+    }
+    
 }

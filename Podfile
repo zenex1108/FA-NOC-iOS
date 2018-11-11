@@ -1,6 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '9.0'
+platform :ios, '10.0'
 use_frameworks!
 
 target 'FA-NOC-iOS' do
@@ -30,6 +30,8 @@ target 'FA-NOC-iOS' do
     pod 'NewPopMenu'
     pod 'SkeletonView'
     pod 'SnapKit'
+    pod 'Floaty'
+    pod 'LGButton'
 
     pod 'AsyncSwift'
     pod 'SwiftDate'
