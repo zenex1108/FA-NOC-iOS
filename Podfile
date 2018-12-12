@@ -16,7 +16,6 @@ target 'FA-NOC-iOS' do
     pod 'NSObject+Rx'
     pod 'RxAlamofire'
 
-    pod 'Moya/RxSwift'
     pod 'Kingfisher'
     pod 'SwiftyJSON'
     pod 'ObjectMapper'

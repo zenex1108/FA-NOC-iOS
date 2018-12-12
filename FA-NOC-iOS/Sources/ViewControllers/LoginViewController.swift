@@ -14,6 +14,9 @@ import RxKeyboard
 import LGButton
 import NSObject_Rx
 import RxAnimated
+import RxOptional
+import SwiftSoup
+import Alamofire
 
 class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDelegate {
     
@@ -28,11 +31,13 @@ class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDe
     @IBOutlet weak var loginButton: LGButton!
     @IBOutlet weak var loginButtonBottomConstraint: NSLayoutConstraint!
     
+    private var token:String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         recaptchView.delegate = self
-//        recaptchView.setupWebView(url: "https://www.furaffinity.net/login")
+        recaptchView.setupWebView(url: "https://www.furaffinity.net/login")
         
         usernameTextField.barDelegate = self
         passwordTextField.barDelegate = self
@@ -40,6 +45,32 @@ class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDe
         RxKeyboard.instance.visibleHeight.map{-$0}.asObservable()
             .bind(to: loginButtonBottomConstraint.rx.animated.layout(duration: 0.25).constant)
         .disposed(by: rx.disposeBag)
+        
+        loginButton.rx.controlEvent(.touchUpInside)
+            .flatMap{ [weak self] () -> Observable<(HTTPURLResponse, String)> in
+                guard let strongSelf = self,
+                    let name = strongSelf.usernameTextField.text
+                    , let pass = strongSelf.passwordTextField.text
+                    , let token = strongSelf.token
+                    else { return Observable.empty() }
+                
+                return API.login(name: name, password: pass, token: token)
+            }
+            .subscribe(onNext: { (response,html) in
+                
+                HTTPCookieStorage.save()
+                print(HTTPCookieStorage.shared.cookies)
+                
+                do {
+                    let doc: Document = try SwiftSoup.parse(html)
+                    let body = try doc.body()
+                    print("")
+                } catch Exception.Error(let type, let message) {
+                    print(message)
+                } catch {
+                    print("error")
+                }
+            }).disposed(by: rx.disposeBag)
     }
     
     func reCaptchaDidLoad(_ view: UIView) {
@@ -53,6 +84,7 @@ class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDe
     func reCaptchaDidSolved(_ view: UIView, _ token: String) {
         
         setBasicConstraint(view)
+        self.token = token
         print("token:\(token)")
     }
     
@@ -88,6 +120,7 @@ class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDe
             passwordTextField.becomeFirstResponder()
         }else if textField === passwordTextField {
             textField.resignFirstResponder()
+            
         }
         
         return false

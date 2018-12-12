@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01036F2521C0217900A3275F /* HTTPCookiePropertyKeyExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01036F2421C0217900A3275F /* HTTPCookiePropertyKeyExt.swift */; };
 		017334692191D40800298AB1 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 017334682191D40800298AB1 /* Splash.storyboard */; };
 		0173346B2191D43200298AB1 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0173346A2191D43200298AB1 /* Setting.storyboard */; };
 		0173346D2191D44D00298AB1 /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0173346C2191D44D00298AB1 /* Notification.storyboard */; };
@@ -17,6 +18,9 @@
 		017334792191DDC900298AB1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017334782191DDC900298AB1 /* LoginViewController.swift */; };
 		0173347C2191E26500298AB1 /* UIBarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173347B2191E26500298AB1 /* UIBarTextField.swift */; };
 		01908877219321250038A4F4 /* UITextFieldExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01908876219321250038A4F4 /* UITextFieldExt.swift */; };
+		01B6365021B6A17100991B6F /* LoginParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6364F21B6A17100991B6F /* LoginParser.swift */; };
+		01B6365521B6A20000991B6F /* LoginUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6365421B6A20000991B6F /* LoginUtil.swift */; };
+		01B6365721B6A2CE00991B6F /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6365621B6A2CE00991B6F /* API.swift */; };
 		01B878AE2196DE1B00DB88E2 /* reCaptcha.js in Resources */ = {isa = PBXBuildFile; fileRef = 01B878AB2196DE1B00DB88E2 /* reCaptcha.js */; };
 		01B878AF2196DE1B00DB88E2 /* ReCaptcha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B878AC2196DE1B00DB88E2 /* ReCaptcha.swift */; };
 		01E6E45B218ECAE40054F0B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6E45A218ECAE40054F0B1 /* AppDelegate.swift */; };
@@ -48,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01036F2421C0217900A3275F /* HTTPCookiePropertyKeyExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCookiePropertyKeyExt.swift; sourceTree = "<group>"; };
 		017334682191D40800298AB1 /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		0173346A2191D43200298AB1 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		0173346C2191D44D00298AB1 /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
@@ -58,6 +63,9 @@
 		017334782191DDC900298AB1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0173347B2191E26500298AB1 /* UIBarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarTextField.swift; sourceTree = "<group>"; };
 		01908876219321250038A4F4 /* UITextFieldExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExt.swift; sourceTree = "<group>"; };
+		01B6364F21B6A17100991B6F /* LoginParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginParser.swift; sourceTree = "<group>"; };
+		01B6365421B6A20000991B6F /* LoginUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUtil.swift; sourceTree = "<group>"; };
+		01B6365621B6A2CE00991B6F /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		01B878AB2196DE1B00DB88E2 /* reCaptcha.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = reCaptcha.js; sourceTree = "<group>"; };
 		01B878AC2196DE1B00DB88E2 /* ReCaptcha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReCaptcha.swift; sourceTree = "<group>"; };
 		01E6E457218ECAE40054F0B1 /* FA-NOC-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FA-NOC-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				01B878A92196DDCC00DB88E2 /* Utils */,
+				01B6365121B6A17E00991B6F /* Parser */,
 				0190887821932E930038A4F4 /* API */,
 				01908875219320E30038A4F4 /* Extensions */,
 				01E6E45A218ECAE40054F0B1 /* AppDelegate.swift */,
@@ -168,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				01908876219321250038A4F4 /* UITextFieldExt.swift */,
+				01036F2421C0217900A3275F /* HTTPCookiePropertyKeyExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -175,14 +185,24 @@
 		0190887821932E930038A4F4 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				01B6365621B6A2CE00991B6F /* API.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		01B6365121B6A17E00991B6F /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				01B6364F21B6A17100991B6F /* LoginParser.swift */,
+			);
+			path = Parser;
 			sourceTree = "<group>";
 		};
 		01B878A92196DDCC00DB88E2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				01B878AA2196DDDC00DB88E2 /* Recaptcha */,
+				01B6365421B6A20000991B6F /* LoginUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -581,10 +601,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01036F2521C0217900A3275F /* HTTPCookiePropertyKeyExt.swift in Sources */,
 				01908877219321250038A4F4 /* UITextFieldExt.swift in Sources */,
 				01B878AF2196DE1B00DB88E2 /* ReCaptcha.swift in Sources */,
 				017334792191DDC900298AB1 /* LoginViewController.swift in Sources */,
 				01E6E45B218ECAE40054F0B1 /* AppDelegate.swift in Sources */,
+				01B6365721B6A2CE00991B6F /* API.swift in Sources */,
+				01B6365021B6A17100991B6F /* LoginParser.swift in Sources */,
+				01B6365521B6A20000991B6F /* LoginUtil.swift in Sources */,
 				017334772191DD3400298AB1 /* SplashViewController.swift in Sources */,
 				0173347C2191E26500298AB1 /* UIBarTextField.swift in Sources */,
 			);
