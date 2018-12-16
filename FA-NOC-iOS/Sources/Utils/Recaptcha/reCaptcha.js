@@ -5,6 +5,9 @@
     var PAGE_BG_COLOR = '#2E3B41';
 
     function waitReady() {
+ 
+        window.webkit.messageHandlers.reCaptcha.postMessage(["readyState", document.readyState]);
+ 
         if (document.readyState == 'complete')
             documentReady();
         else
@@ -12,9 +15,13 @@
     }
 
     function documentReady() {
-        while (document.body.lastChild)
+ 
+        window.webkit.messageHandlers.reCaptcha.postMessage(["documentReady"]);
+ 
+        while (document.body.lastChild) {
             document.body.removeChild(document.body.lastChild);
-
+        }
+ 
         var div = document.createElement('div');
 
         document.body.style.backgroundColor = PAGE_BG_COLOR;

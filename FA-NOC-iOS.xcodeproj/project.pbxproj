@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		010334DE21C4E40400CB3D15 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010334DD21C4E40400CB3D15 /* LoginModel.swift */; };
+		010334E221C4FAD000CB3D15 /* UIAlertControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010334E121C4FAD000CB3D15 /* UIAlertControllerExt.swift */; };
 		01036F2521C0217900A3275F /* HTTPCookiePropertyKeyExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01036F2421C0217900A3275F /* HTTPCookiePropertyKeyExt.swift */; };
+		01361D0621C299B900E1B3F4 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361D0521C299B900E1B3F4 /* BaseViewController.swift */; };
+		01361D0A21C29F3B00E1B3F4 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361D0921C29F3B00E1B3F4 /* Parameters.swift */; };
+		01361D0C21C2B93200E1B3F4 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361D0B21C2B93200E1B3F4 /* Service.swift */; };
 		017334692191D40800298AB1 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 017334682191D40800298AB1 /* Splash.storyboard */; };
 		0173346B2191D43200298AB1 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0173346A2191D43200298AB1 /* Setting.storyboard */; };
 		0173346D2191D44D00298AB1 /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0173346C2191D44D00298AB1 /* Notification.storyboard */; };
@@ -18,8 +23,8 @@
 		017334792191DDC900298AB1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017334782191DDC900298AB1 /* LoginViewController.swift */; };
 		0173347C2191E26500298AB1 /* UIBarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173347B2191E26500298AB1 /* UIBarTextField.swift */; };
 		01908877219321250038A4F4 /* UITextFieldExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01908876219321250038A4F4 /* UITextFieldExt.swift */; };
-		01B6365021B6A17100991B6F /* LoginParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6364F21B6A17100991B6F /* LoginParser.swift */; };
-		01B6365521B6A20000991B6F /* LoginUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6365421B6A20000991B6F /* LoginUtil.swift */; };
+		01B6365021B6A17100991B6F /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6364F21B6A17100991B6F /* Parser.swift */; };
+		01B6365521B6A20000991B6F /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6365421B6A20000991B6F /* Session.swift */; };
 		01B6365721B6A2CE00991B6F /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6365621B6A2CE00991B6F /* API.swift */; };
 		01B878AE2196DE1B00DB88E2 /* reCaptcha.js in Resources */ = {isa = PBXBuildFile; fileRef = 01B878AB2196DE1B00DB88E2 /* reCaptcha.js */; };
 		01B878AF2196DE1B00DB88E2 /* ReCaptcha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B878AC2196DE1B00DB88E2 /* ReCaptcha.swift */; };
@@ -52,7 +57,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		010334DD21C4E40400CB3D15 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		010334E121C4FAD000CB3D15 /* UIAlertControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExt.swift; sourceTree = "<group>"; };
 		01036F2421C0217900A3275F /* HTTPCookiePropertyKeyExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCookiePropertyKeyExt.swift; sourceTree = "<group>"; };
+		01361D0521C299B900E1B3F4 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		01361D0921C29F3B00E1B3F4 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
+		01361D0B21C2B93200E1B3F4 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		017334682191D40800298AB1 /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		0173346A2191D43200298AB1 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		0173346C2191D44D00298AB1 /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
@@ -63,8 +73,8 @@
 		017334782191DDC900298AB1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0173347B2191E26500298AB1 /* UIBarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarTextField.swift; sourceTree = "<group>"; };
 		01908876219321250038A4F4 /* UITextFieldExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExt.swift; sourceTree = "<group>"; };
-		01B6364F21B6A17100991B6F /* LoginParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginParser.swift; sourceTree = "<group>"; };
-		01B6365421B6A20000991B6F /* LoginUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUtil.swift; sourceTree = "<group>"; };
+		01B6364F21B6A17100991B6F /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		01B6365421B6A20000991B6F /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		01B6365621B6A2CE00991B6F /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		01B878AB2196DE1B00DB88E2 /* reCaptcha.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = reCaptcha.js; sourceTree = "<group>"; };
 		01B878AC2196DE1B00DB88E2 /* ReCaptcha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReCaptcha.swift; sourceTree = "<group>"; };
@@ -119,6 +129,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		010334DC21C4E3E700CB3D15 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				010334DD21C4E40400CB3D15 /* LoginModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		010334DF21C4E77300CB3D15 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				01361D0B21C2B93200E1B3F4 /* Service.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		010334E021C4E78600CB3D15 /* Prameters */ = {
+			isa = PBXGroup;
+			children = (
+				01361D0921C29F3B00E1B3F4 /* Parameters.swift */,
+			);
+			path = Prameters;
+			sourceTree = "<group>";
+		};
 		017334642191D3A900298AB1 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,11 +171,14 @@
 		017334652191D3B400298AB1 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				01E6E45A218ECAE40054F0B1 /* AppDelegate.swift */,
+				010334E021C4E78600CB3D15 /* Prameters */,
+				010334DF21C4E77300CB3D15 /* Services */,
+				010334DC21C4E3E700CB3D15 /* Models */,
 				01B878A92196DDCC00DB88E2 /* Utils */,
 				01B6365121B6A17E00991B6F /* Parser */,
 				0190887821932E930038A4F4 /* API */,
 				01908875219320E30038A4F4 /* Extensions */,
-				01E6E45A218ECAE40054F0B1 /* AppDelegate.swift */,
 				0173347A2191E22600298AB1 /* UICustom */,
 				017334672191D3E500298AB1 /* ViewControllers */,
 			);
@@ -159,6 +196,7 @@
 		017334672191D3E500298AB1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				01361D0521C299B900E1B3F4 /* BaseViewController.swift */,
 				017334762191DD3400298AB1 /* SplashViewController.swift */,
 				017334782191DDC900298AB1 /* LoginViewController.swift */,
 			);
@@ -178,6 +216,7 @@
 			children = (
 				01908876219321250038A4F4 /* UITextFieldExt.swift */,
 				01036F2421C0217900A3275F /* HTTPCookiePropertyKeyExt.swift */,
+				010334E121C4FAD000CB3D15 /* UIAlertControllerExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -193,7 +232,7 @@
 		01B6365121B6A17E00991B6F /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				01B6364F21B6A17100991B6F /* LoginParser.swift */,
+				01B6364F21B6A17100991B6F /* Parser.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -202,7 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				01B878AA2196DDDC00DB88E2 /* Recaptcha */,
-				01B6365421B6A20000991B6F /* LoginUtil.swift */,
+				01B6365421B6A20000991B6F /* Session.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -602,15 +641,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				01036F2521C0217900A3275F /* HTTPCookiePropertyKeyExt.swift in Sources */,
+				010334DE21C4E40400CB3D15 /* LoginModel.swift in Sources */,
 				01908877219321250038A4F4 /* UITextFieldExt.swift in Sources */,
+				010334E221C4FAD000CB3D15 /* UIAlertControllerExt.swift in Sources */,
+				01361D0621C299B900E1B3F4 /* BaseViewController.swift in Sources */,
 				01B878AF2196DE1B00DB88E2 /* ReCaptcha.swift in Sources */,
 				017334792191DDC900298AB1 /* LoginViewController.swift in Sources */,
 				01E6E45B218ECAE40054F0B1 /* AppDelegate.swift in Sources */,
+				01361D0C21C2B93200E1B3F4 /* Service.swift in Sources */,
 				01B6365721B6A2CE00991B6F /* API.swift in Sources */,
-				01B6365021B6A17100991B6F /* LoginParser.swift in Sources */,
-				01B6365521B6A20000991B6F /* LoginUtil.swift in Sources */,
+				01B6365021B6A17100991B6F /* Parser.swift in Sources */,
+				01B6365521B6A20000991B6F /* Session.swift in Sources */,
 				017334772191DD3400298AB1 /* SplashViewController.swift in Sources */,
 				0173347C2191E26500298AB1 /* UIBarTextField.swift in Sources */,
+				01361D0A21C29F3B00E1B3F4 /* Parameters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

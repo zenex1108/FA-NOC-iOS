@@ -7,92 +7,121 @@
 //
 
 import UIKit
-import SnapKit
 import RxSwift
 import RxCocoa
 import RxKeyboard
-import LGButton
-import NSObject_Rx
 import RxAnimated
-import RxOptional
-import SwiftSoup
+import NSObject_Rx
 import Alamofire
+import SnapKit
+import LGButton
+import PKHUD
+import WeakableSelf
 
 class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDelegate {
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     @IBOutlet weak private var recaptchView: ReCaptcha!
     
     @IBOutlet weak private var reCaptchaGuideBasic: UIView!
     @IBOutlet weak private var reCaptchaGuideTest: UIView!
+    @IBOutlet weak var reCaptchaCancelButton: UIButton!
     
     @IBOutlet weak var usernameTextField: UIBarTextField!
     @IBOutlet weak var passwordTextField: UIBarTextField!
     
     @IBOutlet weak var loginButton: LGButton!
     @IBOutlet weak var loginButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
-    private var token:String?
+    private var token = BehaviorRelay<String?>(value: nil)
+    
+    private var reCaptchatExpanded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         recaptchView.delegate = self
-        recaptchView.setupWebView(url: "https://www.furaffinity.net/login")
+        recaptchView.initWebView()
         
         usernameTextField.barDelegate = self
         passwordTextField.barDelegate = self
         
-        RxKeyboard.instance.visibleHeight.map{-$0}.asObservable()
-            .bind(to: loginButtonBottomConstraint.rx.animated.layout(duration: 0.25).constant)
-        .disposed(by: rx.disposeBag)
+        reCaptchaCancelButton.rx.tap
+            .subscribe(onNext: weakify { strongSelf, _ in
+                strongSelf.recaptchView.initWebView()
+            }).disposed(by: rx.disposeBag)
+        
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: weakify { strongSelf, height in
+                
+                strongSelf.loginButtonBottomConstraint.constant = height
+                UIView.animate(withDuration: 0, animations: strongSelf.view.layoutIfNeeded)
+            }).disposed(by: rx.disposeBag)
+        
+        Observable.combineLatest(usernameTextField.rx.text.orEmpty, passwordTextField.rx.text.orEmpty, token) { name, password, token -> Bool in
+            return (name.count==0 || password.count==0 || (token ?? "").count==0)
+            }.bind(to: loginButton.rx.animated.fade(duration: 0.25).isHidden)
+            .disposed(by: rx.disposeBag)
         
         loginButton.rx.controlEvent(.touchUpInside)
-            .flatMap{ [weak self] () -> Observable<(HTTPURLResponse, String)> in
-                guard let strongSelf = self,
-                    let name = strongSelf.usernameTextField.text
-                    , let pass = strongSelf.passwordTextField.text
-                    , let token = strongSelf.token
-                    else { return Observable.empty() }
-                
-                return API.login(name: name, password: pass, token: token)
+            .flatMap{ [weak self] () -> Observable<LoginModel> in
+                guard let strongSelf = self else { return Observable.empty() }
+                strongSelf.view.endEditing(true)
+                HUD.show(.progress)
+                let model = LoginModel(name: strongSelf.usernameTextField.text,
+                                       password: strongSelf.passwordTextField.text,
+                                       token: strongSelf.token.value)
+                return Service.login(model)
             }
-            .subscribe(onNext: { (response,html) in
+            .subscribe(onNext: weakify { strongSelf, result in
+                HUD.hide(afterDelay: 0.25)
                 
-                HTTPCookieStorage.save()
-                print(HTTPCookieStorage.shared.cookies)
-                
-                do {
-                    let doc: Document = try SwiftSoup.parse(html)
-                    let body = try doc.body()
-                    print("")
-                } catch Exception.Error(let type, let message) {
-                    print(message)
-                } catch {
-                    print("error")
+                if result.isSuccess {
+                    print("Login: login success!")
+                }else{
+                    UIAlertController.showAlert("Error: \(result.message ?? "Unknown")", strongSelf) { action in
+                        
+                        //init recaptcha
+                        if strongSelf.reCaptchatExpanded || strongSelf.token.value == nil {
+                            strongSelf.recaptchView.initWebView()
+                        }
+                    }
                 }
             }).disposed(by: rx.disposeBag)
     }
     
     func reCaptchaDidLoad(_ view: UIView) {
+        
+        token.accept(nil)
+        reCaptchatExpanded = false
         setBasicConstraint(view)
     }
     
     func reCaptchaWillTest(_ view: UIView) {
+        
+        reCaptchatExpanded = true
+        self.view.endEditing(true)
         setExpandConstraint(view)
     }
     
     func reCaptchaDidSolved(_ view: UIView, _ token: String) {
         
         setBasicConstraint(view)
-        self.token = token
+        self.token.accept(token)
         print("token:\(token)")
     }
     
     func reCaptchaError(_ view: UIView) {
+        
         setBasicConstraint(view)
     }
     
     func setBasicConstraint(_ view:UIView){
+        
+        reCaptchaCancelButton.isHidden = true
         
         view.snp.removeConstraints()
         view.snp.makeConstraints { make in
@@ -104,6 +133,8 @@ class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDe
     }
     
     func setExpandConstraint(_ view:UIView){
+        
+        reCaptchaCancelButton.isHidden = false
         
         view.snp.removeConstraints()
         view.snp.makeConstraints { make in
@@ -120,9 +151,7 @@ class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDe
             passwordTextField.becomeFirstResponder()
         }else if textField === passwordTextField {
             textField.resignFirstResponder()
-            
         }
-        
         return false
     }
     

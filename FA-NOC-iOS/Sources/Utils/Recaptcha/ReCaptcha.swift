@@ -9,6 +9,7 @@
 import Foundation
 import SnapKit
 import WebKit
+import PKHUD
 
 @objc protocol ReCaptchaDelegate {
     func reCaptchaDidLoad(_ view: UIView)
@@ -22,9 +23,10 @@ class ReCaptcha: UIView {
     weak var delegate: ReCaptchaDelegate?
 
     var webView: WKWebView!
-    var url: String!
     
     var tapRecognizer: UITapGestureRecognizer?
+    
+    var readyState: String = "loading"
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,9 +36,7 @@ class ReCaptcha: UIView {
         super.init(coder: aDecoder)
     }
 
-    func setupWebView(url: String) {
-        
-        self.url = url
+    func initWebView() {
 
         let wkController = WKUserContentController()
         wkController.add(self, name: "reCaptcha")
@@ -51,13 +51,14 @@ class ReCaptcha: UIView {
             return
         }
 
+        webView.navigationDelegate = self;
         webView.isHidden = false
         webView.backgroundColor = UIColor.clear
         webView.isOpaque = false
         webView.clipsToBounds = false
         webView.scrollView.isScrollEnabled = false
 
-        webView.load(URLRequest(url: URL(string: url)!))
+        webView.load(URLRequest(url: FaUrl.login))
     }
 
     func readScript() -> WKUserScript {
@@ -85,6 +86,9 @@ extension ReCaptcha: WKScriptMessageHandler {
 
             case "reCaptchaError":
                 reCaptchaError()
+                
+            case "readyState":
+                readyState = args[1]
                 
             default:
                 print("args[0]: \(args[0])")
@@ -173,5 +177,19 @@ extension ReCaptcha: UIGestureRecognizerDelegate {
     func gestureRecognizer(_: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith _: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+extension ReCaptcha: WKNavigationDelegate {
+    
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        HUD.show(.progress)
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if readyState != "complete" {
+            Thread.sleep(forTimeInterval: 2.5)
+        }
+        HUD.hide(afterDelay: 0.25)
     }
 }

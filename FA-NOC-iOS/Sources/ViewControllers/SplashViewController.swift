@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import RxSwift
+import NSObject_Rx
+import PKHUD
 
 class SplashViewController: UIViewController {
 
@@ -18,7 +21,11 @@ class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        performSegue(withIdentifier: "toLoginViewController", sender: nil)
+        if Session.isValid {
+            print("valid session")
+        }else{
+            performSegue(withIdentifier: "toLoginViewController", sender: nil)
+        }
     }
 
 }

@@ -39,13 +39,32 @@ extension HTTPCookieStorage {
     }
     static func restore(){
         if let cookies = UserDefaults.standard.value(forKey: "cookies") as? [[HTTPCookiePropertyKey : Any]] {
+            
+            var allowCookie = false
+            
             for cookie in cookies {
+                
                 if let oldCookie = HTTPCookie(properties: cookie) {
                     print("cookie loaded:\(oldCookie)")
                     HTTPCookieStorage.shared.setCookie(oldCookie)
                 }
+                
+                if let name = cookie[.name] as? String, name == "cc",
+                    let domain = cookie[.domain] as? String, domain.contains("www.furaffinity.net") {
+                    allowCookie = true
+                }
+            }
+            
+            if !allowCookie {
+    
+                HTTPCookieStorage.shared
+                    .setCookie(HTTPCookie(properties: [.name:"cc",
+                                                       .value:"1",
+                                                       .domain:"www.furaffinity.net",
+                                                       .path:"/",
+                                                       .expires:Date(timeIntervalSinceNow: 60*60*24*365)])!)
+                save()
             }
         }
-        
     }
 }
