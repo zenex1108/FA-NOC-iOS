@@ -81,6 +81,7 @@ class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDe
                 
                 if result.isSuccess {
                     print("Login: login success!")
+                    strongSelf.performSegue(withIdentifier: "toMainSegue", sender: nil)
                 }else{
                     UIAlertController.showAlert("Error: \(result.message ?? "Unknown")", strongSelf) { action in
                         
@@ -112,6 +113,11 @@ class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDe
         setBasicConstraint(view)
         self.token.accept(token)
         print("token:\(token)")
+    }
+    
+    func reCaptchaExpired(_ view: UIView) {
+        
+        token.accept(nil)
     }
     
     func reCaptchaError(_ view: UIView) {

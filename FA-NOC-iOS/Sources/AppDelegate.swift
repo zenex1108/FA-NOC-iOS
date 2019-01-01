@@ -7,17 +7,49 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        HTTPCookieStorage.restore()
+        // 예외
+        do {
+            NSSetUncaughtExceptionHandler { exception in
+                print("::Exception::", exception.callStackSymbols.cleanDescription())
+            }
+            
+            signal(SIGABRT) { _ in
+                print(Thread.callStackSymbols.cleanDescription())
+            }
+            
+            signal(SIGILL) { _ in
+                print(Thread.callStackSymbols.cleanDescription())
+            }
+            
+            signal(SIGSEGV) { _ in
+                print(Thread.callStackSymbols.cleanDescription())
+            }
+            
+            signal(SIGFPE) { _ in
+                print(Thread.callStackSymbols.cleanDescription())
+            }
+            
+            signal(SIGBUS) { _ in
+                print(Thread.callStackSymbols.cleanDescription())
+            }
+            
+            signal(SIGPIPE) { _ in
+                print(Thread.callStackSymbols.cleanDescription())
+            }
+        }
+        
+        Fabric.with([Crashlytics.self])
         
         return true
     }

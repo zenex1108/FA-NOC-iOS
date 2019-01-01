@@ -39,6 +39,8 @@ target 'FA-NOC-iOS' do
     pod 'WeakableSelf'
     pod 'SwiftSoup'
 
+    pod 'Fabric'
+    pod 'Crashlytics'
 
   target 'FA-NOC-iOSTests' do
     inherit! :search_paths

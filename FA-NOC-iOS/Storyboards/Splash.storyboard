@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -38,7 +37,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fa_logo" translatesAutoresizingMaskIntoConstraints="NO" id="h9p-lw-qST">
-                                <rect key="frame" x="117" y="316.66666666666669" width="180" height="103"/>
+                                <rect key="frame" x="117" y="317" width="180" height="102"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="item"/>
                                 </userDefinedRuntimeAttributes>
@@ -54,6 +53,7 @@
                     <navigationItem key="navigationItem" id="RxL-5n-yuT"/>
                     <connections>
                         <segue destination="Yef-ot-1Q5" kind="show" identifier="toLoginViewController" id="BCB-EO-GIx"/>
+                        <segue destination="ILv-lO-v8g" kind="show" identifier="toMainSegue" id="lOS-kC-wRe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dl3-MA-lib" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -292,16 +292,28 @@
                         <outlet property="recaptchView" destination="ehK-Gl-A6y" id="wzY-RT-UaX"/>
                         <outlet property="scrollView" destination="SCE-FI-c51" id="08w-bg-ozC"/>
                         <outlet property="usernameTextField" destination="d0A-4x-Rwz" id="EM8-zZ-66V"/>
+                        <segue destination="ILv-lO-v8g" kind="show" identifier="toMainSegue" id="Zd5-Cg-d89"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jil-En-YlD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="770" y="186"/>
         </scene>
+        <!--mainViewController-->
+        <scene sceneID="crv-1g-Fnd">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="mainViewController" id="ILv-lO-v8g" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d3V-TD-wZq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="399" y="629"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="fa_logo" width="180" height="103"/>
+        <image name="fa_logo" width="180" height="102.66666412353516"/>
         <image name="password" width="30" height="30"/>
         <image name="user_male" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Zd5-Cg-d89"/>
+    </inferredMetricsTieBreakers>
 </document>

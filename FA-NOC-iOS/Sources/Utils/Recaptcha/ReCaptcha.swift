@@ -15,6 +15,7 @@ import PKHUD
     func reCaptchaDidLoad(_ view: UIView)
     func reCaptchaDidSolved(_ view: UIView, _ token: String)
     func reCaptchaWillTest(_ view: UIView)
+    func reCaptchaExpired(_ view: UIView)
     func reCaptchaError(_ view: UIView)
 }
 
@@ -132,6 +133,8 @@ extension ReCaptcha: WKScriptMessageHandler {
         print("ReCaptcha expired")
         
         registerTapGesture()
+        
+        delegate?.reCaptchaExpired(self)
     }
     
     func reCaptchaError() {

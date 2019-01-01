@@ -17,6 +17,16 @@ class LoginModel: NSObject {
     var isSuccess: Bool = false
     var message: String?
     
+    var callParameters: [String:Any] {
+        return ["name": name!,
+                "pass": password!,
+                "g-recaptcha-response": token!,
+                "use_old_captcha": 0,
+                "action": "login",
+                "captcha": "",
+                "login": "Login to FurAffinity"]
+    }
+    
     override init() {
         super.init()
     }

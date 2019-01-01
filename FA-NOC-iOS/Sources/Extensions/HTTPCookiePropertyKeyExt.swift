@@ -45,7 +45,7 @@ extension HTTPCookieStorage {
             for cookie in cookies {
                 
                 if let oldCookie = HTTPCookie(properties: cookie) {
-                    print("cookie loaded:\(oldCookie)")
+//                    print("cookie loaded:\(oldCookie)")
                     HTTPCookieStorage.shared.setCookie(oldCookie)
                 }
                 

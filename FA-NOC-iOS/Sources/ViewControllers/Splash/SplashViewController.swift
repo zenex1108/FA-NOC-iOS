@@ -10,12 +10,17 @@ import UIKit
 import RxSwift
 import NSObject_Rx
 import PKHUD
+import Kingfisher
 
 class SplashViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        HTTPCookieStorage.restore()
+        
+        ImageCache.default.memoryStorage.config.totalCostLimit = 200 * 1024 * 1024
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -23,9 +28,10 @@ class SplashViewController: UIViewController {
         
         if Session.isValid {
             print("valid session")
+            performSegue(withIdentifier: "toMainSegue", sender: nil)
         }else{
             performSegue(withIdentifier: "toLoginViewController", sender: nil)
         }
     }
-
+    
 }

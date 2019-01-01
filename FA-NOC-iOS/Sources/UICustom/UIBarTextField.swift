@@ -12,7 +12,7 @@ public enum UIBarTextFieldType : String {
     case top, bottom, left, right
 }
 
-// UITextFieldDelegate와 동일
+// Same UITextFieldDelegate.
 @objc public protocol UIBarTextFieldDelegate {
     
     /// return NO to disallow editing.
