@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import Hue
 
 class InfinityGalleryCell: InfinityCollectionViewCell {
     
@@ -15,31 +16,26 @@ class InfinityGalleryCell: InfinityCollectionViewCell {
     @IBOutlet private var infoBox: UIView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var userLabel: UILabel!
-    @IBOutlet private var ratingLabel: UILabel!
     
-    func binding(_ model: GalleryItemModel, numberOfColmns: Int) {
+    func binding(_ model: GalleryItemModel, numberOfColumns: Int, placeholder: Placeholder) {
         
-        let visibleInfo = (numberOfColmns == 1)
+        let visibleInfo = (numberOfColumns == 1)
         
         infoBox.isHidden = !visibleInfo
         titleLabel.text = (visibleInfo ? model.title : nil)
         userLabel.text = (visibleInfo ? "by \(model.userName!)" : nil)
         
-        ratingLabel.text = model.rating.short
-        ratingLabel.textColor = model.rating.color
+        outlineWidth = CGFloat(6-numberOfColumns)
+        outlineColor = model.rating.color.alpha(0.2+CGFloat(numberOfColumns)/10)
         
         imageView.kf.cancelDownloadTask()
         imageView.image = nil
         imageView.kf.setImage(with: model.thumbnailUrl,
+                              placeholder: placeholder,
                               options: [.transition(.fade(0.25))])
         
-        let radius = CGFloat(16.0/Double(numberOfColmns))
-        cornerRadius = radius
-        ratingLabel.roundCorners(.topLeft, radius: radius, size: ratingLabel.bounds.size)
-        
-        if visibleInfo {
-            layoutIfNeeded()
-            infoBox.roundCorners(.topRight, radius: radius)
-        }
+        cornerRadius = CGFloat(16.0/Double(numberOfColumns))
     }
 }
+
+

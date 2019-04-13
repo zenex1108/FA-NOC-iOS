@@ -14,8 +14,7 @@ protocol InfinityCollectionViewDelegate: UICollectionViewDelegateFlowLayout {
 }
 
 protocol InfinityCollectionViewDataSource: UICollectionViewDataSource {
-    
-    func numberOfColomn(in infinityCollectionView: InfinityCollectionView) -> Int
+
     func preLoadingYOffset(in infinityCollectionView: InfinityCollectionView) -> CGFloat
     func minimumRatio(in infinityCollectionView: InfinityCollectionView) -> Double
     func maximumRatio(in infinityCollectionView: InfinityCollectionView) -> Double
@@ -48,6 +47,10 @@ class InfinityCollectionView: UICollectionView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        let cellSpacing = infDataSource.cellSpacing(in: self)
+        let insetBottom = Double(contentInset.bottom)
+        contentInset.bottom = CGFloat(insetBottom-cellSpacing)
+        
         indicator = UIActivityIndicatorView(style: .gray)
         backgroundView = indicator
     }
@@ -64,28 +67,20 @@ extension InfinityCollectionView: UICollectionViewDelegateFlowLayout {
         
         if bottomOffset < preLoadingOffset {
             possibledLoad = false
-            infDelegate?.preLoading(in: self, initialLoad: false)
+            let initLoad = (contentOffset.x + contentInset.left + contentOffset.y + contentInset.top == 0)
+            infDelegate?.preLoading(in: self, initialLoad: initLoad)
         }
     }
 }
 
 extension InfinityCollectionView: InfinityCollectionViewLayoutDelegate {
     
-    func collectionView(_ collectionView:UICollectionView, heightAtIndexPath indexPath:IndexPath) -> Double {
-        
-        let numberOfColomn = infDataSource.numberOfColomn(in: self)
-        let cellSpacing = infDataSource.cellSpacing(in: self)
+    func collectionView(_ collectionView:UICollectionView, heightRatioAtIndexPath indexPath:IndexPath) -> Double {
         
         let minRatio = infDataSource.minimumRatio(in: self)
         let maxRatio = infDataSource.maximumRatio(in: self)
-        let ratio = infDataSource.infinityCollectionView(self, heightRatioAt: indexPath)
+        let realRatio = infDataSource.infinityCollectionView(self, heightRatioAt: indexPath)
         
-        let viewWidth = Double(collectionView.bounds.width)
-        let emptyWidth = Double(contentInset.left+contentInset.right) + Double(numberOfColomn-1)*cellSpacing
-        
-        let cellWidth = (viewWidth-emptyWidth)/Double(numberOfColomn)
-        let cellHeight = cellWidth*max(minRatio,min(ratio, maxRatio))
-        
-        return cellHeight
+        return max(minRatio,min(realRatio, maxRatio))
     }
 }

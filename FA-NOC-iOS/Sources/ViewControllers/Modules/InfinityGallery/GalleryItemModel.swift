@@ -27,7 +27,7 @@ class GalleryItemModel: NSObject {
         
         var color: UIColor {
             switch self {
-            case .general: return .white
+            case .general: return .gray
             case .mature: return .blue
             case .adult: return .red
             }

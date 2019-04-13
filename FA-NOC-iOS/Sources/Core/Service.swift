@@ -21,7 +21,16 @@ class Service: NSObject {
     static func browse(_ page:Int) -> Observable<[GalleryItemModel]> {
         return API.browse(page)
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-            .map{Parser.browse($0.0, $0.1)}
-            .observeOn(MainScheduler.instance)
+            .flatMap{ data -> Observable<[GalleryItemModel]> in
+                return Parser.browseObservable(data.0, data.1)
+            }.observeOn(MainScheduler.instance)
+    }
+    
+    static func view(_ galleryModel:GalleryItemModel) -> Observable<SubmissionModel> {
+        return API.view(galleryModel.id)
+            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .flatMap{ data -> Observable<SubmissionModel> in
+                return Parser.viewObservable(data.0, data.1, galleryModel)
+            }.observeOn(MainScheduler.instance)
     }
 }

@@ -8,6 +8,9 @@
 
 import UIKit
 import Kingfisher
+import RxSwift
+import RxCocoa
+import NSObject_Rx
 
 protocol InfinityGalleryDelegate: NSObjectProtocol {
     
@@ -15,24 +18,80 @@ protocol InfinityGalleryDelegate: NSObjectProtocol {
     func preLoading(in infinityGallery: InfinityGallery, initialLoad flag: Bool)
 }
 
+protocol InfinityGalleryDatasource: NSObjectProtocol {
+    
+    func numberOfColomns(in infinityGallery: InfinityGallery) -> Int
+}
+
 class InfinityGallery: InfinityCollectionView {
 
     weak var infGalleryDelegate: InfinityGalleryDelegate?
+    weak var infGalleryDataSource: InfinityGalleryDatasource!
     
-    var numberOfColumns: Int = 3
     private var items = [GalleryItemModel]()
     
+    var numberOfColumns = BehaviorRelay<Int>(value: 2)
+    private var overlapCount: Int = 0
+    
     override func awakeFromNib() {
-        super.awakeFromNib()
         
         contentInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+        
         register(UINib(nibName: InfinityGalleryCell.className, bundle: nil), forCellWithReuseIdentifier: InfinityGalleryCell.className)
+        
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         
         infDataSource = self
         infDelegate = self
-        infLayout = InfinityCollectionViewLayout(self, cellSpacing: cellSpacing(in: self), numberOfColumns: numberOfColumns)
+        
+        infLayout = InfinityCollectionViewLayout(self, cellSpacing: cellSpacing(in: self), numberOfColumns: numberOfColumns.value)
+        
+        super.awakeFromNib()
+        
+        numberOfColumns
+            .distinctUntilChanged()
+            .map{($0,self.items)}
+            .subscribe(onNext: initReloadData)
+            .disposed(by: rx.disposeBag)
+    }
+    
+    private func initReloadData(_ numberOfColumns: Int, items: [GalleryItemModel]) {
+        
+        infLayout.refresh(numberOfColumns: numberOfColumns)
+        
+        let prevItemCount = self.items.count
+        let visibles = indexPathsForVisibleItems
+        let prevIndexPath = (prevItemCount<=items.count && visibles.count>0 ? indexPathsForVisibleItems[visibles.count/2] : nil)
+        
+        self.items = items
+        reloadData()
+        
+        if let indexPath = prevIndexPath {
+            scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
+        }else{
+            scrollRectToVisible(.zero, animated: true)
+        }
+    }
+    
+    private func updateUI(isInit: Bool = false) {
+        
+        isUserInteractionEnabled = !isInit
+        
+        if items.count == 0 {
+            if isInit {
+                indicator.startAnimating()
+            }else{
+                indicator.stopAnimating()
+            }
+        }else{
+            if isInit {
+            }else{
+                if refreshControl!.isRefreshing {
+                    refreshControl!.endRefreshing()
+                }
+            }
+        }
     }
     
     open func add(items: [GalleryItemModel], isInit: Bool) {
@@ -40,32 +99,29 @@ class InfinityGallery: InfinityCollectionView {
         objc_sync_enter(self)
         defer{objc_sync_exit(self)}
         
-        if self.items.count == 0 {
-            indicator.stopAnimating()
-            isUserInteractionEnabled = true
-        }
+        updateUI()
         
         if isInit {
             
-            infLayout.refresh()
-            self.items.removeAll()
-            
-            self.items.append(contentsOf: items)
-            reloadData()
-            
-            refreshControl?.endRefreshing()
-            isUserInteractionEnabled = true
+            initReloadData(numberOfColumns.value, items: items)
+            possibledLoad = true
         }else{
             
             possibledLoad = true
             
             let distinctedItems = distincted(items)
-            
             if distinctedItems.count > 0 {
+                
                 self.items.append(contentsOf: distinctedItems)
                 reloadData()
             }else{
-                preLoading(in: self, initialLoad: false)
+                
+                let needInitLoad = (overlapCount >= self.items.count)
+                preLoading(in: self, initialLoad: needInitLoad)
+                
+                if needInitLoad {
+                    scrollRectToVisible(.zero, animated: false)
+                }
             }
         }
     }
@@ -89,15 +145,34 @@ class InfinityGallery: InfinityCollectionView {
             }else{
                 let removed = mutateItems.removeFirst()
                 print("\nRemoved", removed)
+                
+                overlapCount += 1
             }
+        }
+        
+        if mutateItems.count > 0 {
+            overlapCount = 0
         }
         
         return mutateItems
     }
     
     @objc private func refresh(_ sender: UIRefreshControl) {
+        
         isUserInteractionEnabled = false
+        ImageCache.default.clearMemoryCache()
+        
+        possibledLoad = true
         preLoading(in: self, initialLoad: true)
+    }
+    
+    private func loadPlaceholder(_ indexPath: IndexPath) -> Placeholder {
+        
+        let width = infLayout.cellWidth
+        let heightRatio = infinityCollectionView(self, heightRatioAt: indexPath)
+        let tip = minimumRatio(in: self)
+        
+        return GalleryPlaceholder(width: width, heightRatio: heightRatio, tip: tip)
     }
 }
 
@@ -107,12 +182,8 @@ extension InfinityGallery: InfinityCollectionViewDataSource {
         return 2
     }
     
-    func numberOfColomn(in infinityCollectionView: InfinityCollectionView) -> Int {
-        return numberOfColumns
-    }
-    
     func preLoadingYOffset(in infinityCollectionView: InfinityCollectionView) -> CGFloat {
-        return infinityCollectionView.bounds.height + CGFloat(Double(items.count*50)/pow(Double(numberOfColumns),2))
+        return infinityCollectionView.bounds.height + CGFloat(Double(items.count*50)/pow(Double(numberOfColumns.value),2))
     }
     
     func minimumRatio(in infinityCollectionView: InfinityCollectionView) -> Double {
@@ -141,7 +212,7 @@ extension InfinityGallery: InfinityCollectionViewDataSource {
         
         let model = items[indexPath.item]
         let cell: InfinityGalleryCell = collectionView.cell(InfinityGalleryCell.className, for: indexPath)
-        cell.binding(model, numberOfColmns: numberOfColumns)
+        cell.binding(model, numberOfColumns: numberOfColumns.value, placeholder: loadPlaceholder(indexPath))
         
         return cell
     }
@@ -155,10 +226,7 @@ extension InfinityGallery: InfinityCollectionViewDelegate {
     }
     
     func preLoading(in infinityCollectionView: InfinityCollectionView, initialLoad flag: Bool) {
-        if items.count == 0 {
-            isUserInteractionEnabled = false
-            indicator.startAnimating()
-        }
+        updateUI(isInit: flag)
         infGalleryDelegate?.preLoading(in: self, initialLoad: flag)
     }
 }

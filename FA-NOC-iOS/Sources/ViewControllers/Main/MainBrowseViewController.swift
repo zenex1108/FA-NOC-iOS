@@ -20,12 +20,23 @@ class MainBrowseViewController: MainBaseViewController {
         super.viewDidLoad()
         
         infinityGalleryView.infGalleryDelegate = self
+        infinityGalleryView.numberOfColumns.accept(Int(Settings.getBrowse().columnCount)!)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         
-        //파라미터로 넘겨줘야 할 설정을 가져온다
-        //가져온 파라미터로 호출
-        //변환된 모델을 순차적으로 인피니티로 넘긴다
-        //마지막 위치가 보이기 전에 푸터로 인디케이터 표시하고
-        //
+        let settingViewController = segue.destination as? SettingTableViewController
+        settingViewController?.type = .browse
+        settingViewController?.delegate = self
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if infinityGalleryView.refreshControl!.isRefreshing {
+            infinityGalleryView.refreshControl!.endRefreshing()
+        }
     }
 }
 
@@ -35,18 +46,40 @@ extension MainBrowseViewController: InfinityGalleryDelegate {
         
         //넘겨받은 정보로 세부창으로 이동 - 모델을 받도록 변경 필요
         print(item)
+        
+        let viewController = SubmissionViewController.loadViewController(.Submission)
+        viewController.galleryModel = item
+        
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     func preLoading(in infinityGallery: InfinityGallery, initialLoad flag: Bool) {
+
+        ImageLoadScheduler.shared.load(weakify { strongSelf, completion in
+            strongSelf.page = (flag ? 1 : strongSelf.page+1)
+            let prevPage = strongSelf.page-1
+            Service.browse(strongSelf.page)
+                .subscribe(onNext: { models in
+                    infinityGallery.add(items: models, isInit: flag)
+                    completion()
+                }, onError: { error in
+                    strongSelf.page = prevPage
+                    infinityGallery.add(items: [], isInit: false)
+                    completion()
+                }, onCompleted: completion)
+                .disposed(by: strongSelf.rx.disposeBag)
+        }, isInit: flag)
+    }
+}
+
+extension MainBrowseViewController: SettingTableViewControllerDelegate {
+    
+    func chagedSetting(_ onlyLayout: Bool) {
         
-        //추가 로딩 신호를 받으면 추가로 요청한 후 모델로 변경 후 아이템 추가 - 아이템 추가 함수 자체를 파라미터로 받도록 하기
-        
-        page = (flag ? 1 : page+1)
-        Service.browse(page)
-            .subscribe(onNext: { models in
-                infinityGallery.add(items: models, isInit: flag)
-            }, onError: { error in
-                infinityGallery.add(items: [], isInit: false)
-            }).disposed(by: rx.disposeBag)
+        if onlyLayout {
+            infinityGalleryView.numberOfColumns.accept(Int(Settings.getBrowse().columnCount)!)
+        }else{
+            preLoading(in: infinityGalleryView, initialLoad: true)
+        }
     }
 }

@@ -14,6 +14,8 @@ class MainBaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //TODO:??
+//        navigationController?.interactivePopGestureRecognizer
 
         // Do any additional setup after loading the view.
     }

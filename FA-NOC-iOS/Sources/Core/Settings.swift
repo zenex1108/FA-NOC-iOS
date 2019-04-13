@@ -8,77 +8,51 @@
 
 import UIKit
 
-struct SettingModel {
-    let sections: [SettingSection]
-    
-    var description: String {
-        return sections.map{$0.description}.reduce("", {$0+"\n\n"+$1})
-    }
-}
-
-struct SettingSection {
-    let category: String
-    let items: [SettingItem]
-    
-    var description: String {
-        return category+"\n"+items.map{$0.description}.reduce("", {$0+"\n"+$1})
-    }
-}
-
-struct SettingItem {
-    let text: String
-    let value: String
-    
-    var description: String {
-        return text+" "+value
-    }
-}
-
 class Settings: NSObject {
     
     static private let kbrowseParameters = "kbrowseParameters"
-    static private var browseParameters: [String:Any]!
+    static private var browseParameters: BrowseRequestModel!
     
-    
-    static func browseList(_ category:Browse.List) -> SettingModel {
-        return category.model
+    static func setBrowse(setting model: SettingModel) {
+        
+        let value = model.selectedSection.selectedItem?.value
+        
+        switch model.name {
+        case Browse.ColumnCount.categoryName: browseParameters.columnCount = value!
+        case Browse.Category.categoryName: browseParameters.category = value
+        case Browse.BType.categoryName: browseParameters.type = value
+        case Browse.Species.categoryName: browseParameters.species = value
+        case Browse.Gender.categoryName: browseParameters.gender = value
+        case Browse.RatingGeneral.categoryName: browseParameters.general = (value == "on" ? value : nil)
+        case Browse.RatingMature.categoryName: browseParameters.mature = (value == "on" ? value : nil)
+        case Browse.RatingAdult.categoryName: browseParameters.adult = (value == "on" ? value : nil)
+        default: break
+        }
+        
+        setBrowse(request: browseParameters)
     }
     
-    static func setBrowse(category:Browse.Category,
-                          type:Browse.BType,
-                          species:Browse.Species,
-                          gender:Browse.Gender,
-                          results:Browse.Results,
-                          general:Bool, mature:Bool, adult:Bool) {
-
-        objc_sync_enter(kbrowseParameters)
-        defer {objc_sync_exit(kbrowseParameters)}
+    static func setBrowse(request model: BrowseRequestModel) {
         
-        browseParameters?.removeAll()
-        browseParameters = ["cat": category.value,
-                            "atype": type.value,
-                            "species": species.value,
-                            "gender": gender.rawString,
-                            "perpage": results.rawString]
+        browseParameters = model
         
-        if general { browseParameters["rating_general"] = "on" }
-        if mature { browseParameters["rating_mature"] = "on" }
-        if adult { browseParameters["rating_adult"] = "on" }
+        var json = model.toJSON()
+        json[Browse.ColumnCount.categoryName] = model.columnCount
         
-        UserDefaults.standard.set(browseParameters, forKey: kbrowseParameters)
+        UserDefaults.standard.set(json, forKey: kbrowseParameters)
         UserDefaults.standard.synchronize()
     }
     
-    static func getBrowse() -> [String:Any] {
-        
-        objc_sync_enter(kbrowseParameters)
-        defer {objc_sync_exit(kbrowseParameters)}
+    static func getBrowse() -> BrowseRequestModel {
         
         if browseParameters == nil {
-            browseParameters = UserDefaults.standard.dictionary(forKey: kbrowseParameters)
+            if let json = UserDefaults.standard.dictionary(forKey: kbrowseParameters) {
+                browseParameters = BrowseRequestModel(JSON: json)
+                browseParameters.columnCount = json[Browse.ColumnCount.categoryName] as! String
+            }
         }
         if browseParameters == nil {
-            setBrowse(category: .visualArt(.all), type: .generalThings(.all), species: .unspecifiedOrAny, gender: .any, results: .fe, general: true, mature: false, adult: false)
+            setBrowse(request: BrowseRequestModel())
         }
         
         return browseParameters

@@ -8,6 +8,19 @@
 
 import Foundation
 
+public enum FAExceptionType {
+    case siteOffline
+}
+
+public enum FAException: Error {
+    case error(type:FAExceptionType, Message: String)
+}
+
+enum FATheme {
+    case classic
+    case beta
+}
+
 enum FaStrRefUrl: String {
     
     case login = "/login/"
@@ -45,22 +58,253 @@ struct FaUrl {
     static func user(_ name:String) -> URL {
         return makeURL(strRef: "/user/\(name)")
     }
+    
+    static func view(_ postId:String) -> URL {
+        return makeURL(strRef: "/view/\(postId)")
+    }
 }
-
 
 struct Browse {
     
-    enum List {
-        case category, type, species, gender, results
+    enum Rating: BrowseSetting {
+        
+        static var allCases: [Rating] {
+            return [.general, .mature, .adult]
+        }
+        
+        case general, mature, adult
+        
+        static var categoryName: String {
+            return "Rating"
+        }
+        
+        var name: String {
+            switch self {
+            case .general: return RatingGeneral.categoryName
+            case .mature: return RatingMature.categoryName
+            case .adult: return RatingAdult.categoryName
+            }
+        }
         
         var model: SettingModel {
-            switch self {
-            case .category: return Category.model
-            case .type: return BType.model
-            case .species: return Species.model
-            case .gender: return Gender.model
-            case .results: return Results.model
+            
+            let selected = Settings.getBrowse()
+            var model: SettingModel!
+            
+            switch self{
+            case .general:
+                model = RatingGeneral.model
+                model.select(value: selected.general ?? "off")
+            case .mature:
+                model = RatingMature.model
+                model.select(value: selected.mature ?? "off")
+            case .adult:
+                model = RatingAdult.model
+                model.select(value: selected.adult ?? "off")
             }
+            
+            return model
+        }
+    }
+    
+    enum RatingGeneral: String, BrowseSettingEnumProtocol {
+        
+        static var allCases: [RatingGeneral] {
+            return [.on, .off]
+        }
+        
+        case on = "on"
+        case off = "off"
+        
+        static var categoryName: String {
+            return "General"
+        }
+        
+        var name: String {
+            return String(describing: self).capitalized
+        }
+        
+        var value: String {
+            return rawString
+        }
+        
+        static var model: SettingModel {
+            return SettingModel(name: categoryName, sections: [RatingGeneral.section])
+        }
+        
+        var enumValue: RatingGeneral {
+            return self
+        }
+    }
+    
+    enum RatingMature: String, BrowseSettingEnumProtocol {
+        
+        static var allCases: [RatingMature] {
+            return [.on, .off]
+        }
+        
+        case on = "on"
+        case off = "off"
+        
+        static var categoryName: String {
+            return "Mature"
+        }
+        
+        var name: String {
+            return String(describing: self).capitalized
+        }
+        
+        var value: String {
+            return String(describing: self)
+        }
+        
+        static var model: SettingModel {
+            return SettingModel(name: categoryName, sections: [RatingMature.section])
+        }
+        
+        var enumValue: RatingMature {
+            return self
+        }
+    }
+    
+    enum RatingAdult: String, BrowseSettingEnumProtocol {
+        
+        static var allCases: [RatingAdult] {
+            return [.on, .off]
+        }
+        
+        case on = "on"
+        case off = "off"
+        
+        static var categoryName: String {
+            return "Adult"
+        }
+        
+        var name: String {
+            return String(describing: self).capitalized
+        }
+        
+        var value: String {
+            return String(describing: self)
+        }
+        
+        static var model: SettingModel {
+            return SettingModel(name: categoryName, sections: [RatingAdult.section])
+        }
+        
+        var enumValue: RatingAdult {
+            return self
+        }
+    }
+    
+    enum View: BrowseSetting {
+        
+        static var allCases: [View] {
+            return [.columnCount]
+        }
+        
+        case columnCount
+        
+        static var categoryName: String {
+            return "View"
+        }
+        
+        var name: String {
+            switch self {
+            case .columnCount: return ColumnCount.categoryName
+            }
+        }
+        
+        var model: SettingModel {
+            
+            let selected = Settings.getBrowse()
+            var model: SettingModel!
+            
+            switch self {
+            case .columnCount:
+                model = ColumnCount.model
+                model.select(value: selected.columnCount)
+            }
+            
+            return model
+        }
+    }
+    
+    enum ColumnCount: Int, BrowseSettingEnumProtocol {
+        
+        static var allCases: [ColumnCount] {
+            return [.one, .two, .three, .four, .five]
+        }
+        
+        static var categoryName: String {
+            return "Column Count"
+        }
+        
+        var name: String {
+            return rawString
+        }
+        
+        var value: String {
+            return rawString
+        }
+        
+        case one = 1
+        case two
+        case three
+        case four
+        case five
+        
+        var enumValue: ColumnCount {
+            return self
+        }
+        
+        static var model: SettingModel {
+            return SettingModel(name: categoryName, sections: [ColumnCount.section])
+        }
+    }
+    
+    enum Filter: BrowseSetting {
+        
+        static var allCases: [Filter] {
+            return [.category, .type, .species, .gender]
+        }
+        
+        case category, type, species, gender
+        
+        static var categoryName: String {
+            return "Filter"
+        }
+        
+        var name: String {
+            switch self {
+            case .category: return Category.categoryName
+            case .type: return BType.categoryName
+            case .species: return Species.categoryName
+            case .gender: return Gender.categoryName
+            }
+        }
+        
+        var model: SettingModel {
+            
+            let selected = Settings.getBrowse()
+            var model: SettingModel!
+            
+            switch self {
+            case .category:
+                model = Category.model
+                model.select(value: selected.category)
+            case .type:
+                model = BType.model
+                model.select(value: selected.type)
+            case .species:
+                model = Species.model
+                model.select(value: selected.species)
+            case .gender:
+                model = Gender.model
+                model.select(value: selected.gender)
+            }
+            
+            return model
         }
     }
     
@@ -103,11 +347,11 @@ struct Browse {
         }
         
         static var model: SettingModel {
-            return SettingModel(sections: [VisualArt.section, ReadableArt.section, AudioArt.section, Downloadable.section, OtherStuff.section])
+            return SettingModel(name: categoryName, sections: [VisualArt.section, ReadableArt.section, AudioArt.section, Downloadable.section, OtherStuff.section])
         }
     }
     
-    enum VisualArt: Int, BrowseSetting {
+    enum VisualArt: Int, BrowseSettingEnumProtocol {
         
         case all = 1
         case artworkDigital
@@ -136,9 +380,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Category {
+            return .visualArt(self)
+        }
     }
     
-    enum ReadableArt: Int, BrowseSetting {
+    enum ReadableArt: Int, BrowseSettingEnumProtocol {
+        
         case story = 13
         case poetry
         case prose
@@ -150,9 +399,14 @@ struct Browse {
         var name: String {
             return String(describing: self).capitalized
         }
+        
+        var enumValue: Category {
+            return .readableArt(self)
+        }
     }
     
-    enum AudioArt: Int, BrowseSetting {
+    enum AudioArt: Int, BrowseSettingEnumProtocol {
+        
         case music = 16
         case podcasts
         
@@ -163,9 +417,14 @@ struct Browse {
         var name: String {
             return String(describing: self).capitalized
         }
+        
+        var enumValue: Category {
+            return .audioArt(self)
+        }
     }
     
-    enum Downloadable: Int, BrowseSetting {
+    enum Downloadable: Int, BrowseSettingEnumProtocol {
+        
         case skins = 18
         case handhelds
         case resources
@@ -177,9 +436,14 @@ struct Browse {
         var name: String {
             return String(describing: self).capitalized
         }
+        
+        var enumValue: Category {
+            return .downloadable(self)
+        }
     }
     
-    enum OtherStuff: Int, BrowseSetting {
+    enum OtherStuff: Int, BrowseSettingEnumProtocol {
+        
         case adoptables = 21
         case auctions
         case contests
@@ -206,11 +470,15 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Category {
+            return .otherStuff(self)
+        }
     }
     
     //MARK: - (B)Type -
     
-    public enum BType {
+    public enum BType: BrowseSetting {
         
         static var allCases: [BType] {
             return [.generalThings(.all), .fetishOrFurrySpecialty(.generalFurryArt), .music(.otherMusic)]
@@ -241,11 +509,12 @@ struct Browse {
         }
         
         static var model: SettingModel {
-            return SettingModel(sections: [GeneralThings.section, FetishOrFurrySpecialty.section, Music.section])
+            return SettingModel(name: categoryName, sections: [GeneralThings.section, FetishOrFurrySpecialty.section, Music.section])
         }
     }
     
-    enum GeneralThings: Int, BrowseSetting {
+    enum GeneralThings: Int, BrowseSettingEnumProtocol {
+        
         case all = 1
         case abstract
         case animalRelated
@@ -275,17 +544,22 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: BType {
+            return .generalThings(self)
+        }
     }
     
-    enum FetishOrFurrySpecialty: Int, BrowseSetting {
+    enum FetishOrFurrySpecialty: Int, BrowseSettingEnumProtocol {
+        
         case babyFur = 101
         case bondage
         case digimon
         case fatFurs
         case fetishOther
         case fursuit
-        case goreOrMacabreArt
-        case hyper
+        case goreOrMacabreArt = 119
+        case hyper = 107
         case inflation
         case macroOrMicro
         case muscle
@@ -325,9 +599,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: BType {
+            return .fetishOrFurrySpecialty(self)
+        }
     }
     
-    enum Music: Int, BrowseSetting {
+    enum Music: Int, BrowseSettingEnumProtocol {
+        
         case techno = 201
         case trance
         case house
@@ -368,17 +647,21 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: BType {
+            return .music(self)
+        }
     }
     
     //MARK: - Species -
     
-    enum Species {
+    enum Species: BrowseSetting {
         
         static var allCases: [Species] {
-            return [.unspecifiedOrAny, .amphibian(.amphibianOther), .aquatic(.aquaticOther), .avian(.avianOther), .bearsAndUrsines(.bear), .camelids(.camel), .caninesAndLupines(.canineOther), .cervines(.cervineOther), .cowsAndBovines(.bovinesGeneral), .dragons(.dragonOther), .equestrians(.horse), .exoticAndMythicals(.exoticOther), .felines(.felineOther), .insects(.insectOther), .mammalsOther(.mammalsOther), .marsupials(.marsupialOther), .mustelids(.mustelidOther), .primates(.primateOther), .reptillian(.reptilianOther), .rodents(.rodentOther), .vulpines(.vulpineOther), .other(.dinosaur)]
+            return [.unspecifiedOrAny(.default), .amphibian(.amphibianOther), .aquatic(.aquaticOther), .avian(.avianOther), .bearsAndUrsines(.bear), .camelids(.camel), .caninesAndLupines(.canineOther), .cervines(.cervineOther), .cowsAndBovines(.bovinesGeneral), .dragons(.dragonOther), .equestrians(.horse), .exoticAndMythicals(.exoticOther), .felines(.felineOther), .insects(.insectOther), .mammalsOther(.mammalsOther), .marsupials(.marsupialOther), .mustelids(.mustelidOther), .primates(.primateOther), .reptillian(.reptilianOther), .rodents(.rodentOther), .vulpines(.vulpineOther), .other(.dinosaur)]
         }
         
-        case unspecifiedOrAny
+        case unspecifiedOrAny(UnspecifiedOrAny)
         case amphibian(Amphibian)
         case aquatic(Aquatic)
         case avian(Avian)
@@ -407,7 +690,7 @@ struct Browse {
         
         var value: String {
             switch self {
-            case .unspecifiedOrAny: return "1"
+            case .unspecifiedOrAny(let value): return value.rawString
             case .amphibian(let value): return value.rawString
             case .aquatic(let value): return value.rawString
             case .avian(let value): return value.rawString
@@ -434,7 +717,7 @@ struct Browse {
         
         var name: String {
             switch self {
-            case .unspecifiedOrAny: return "Unspecified / Any"
+            case .unspecifiedOrAny: return UnspecifiedOrAny.categoryName
             case .amphibian: return Amphibian.categoryName
             case .aquatic: return Aquatic.categoryName
             case .avian: return Avian.categoryName
@@ -460,11 +743,29 @@ struct Browse {
         }
         
         static var model: SettingModel {
-            return SettingModel(sections: [SettingSection(category: "Unspecified / Any", items: []) , Amphibian.section, Aquatic.section, Avian.section, BearsAndUrsines.section, Camelids.section, CaninesAndLupines.section, Cervines.section, CowsAndBovines.section, Dragons.section, Equestrians.section, ExoticAndMythicals.section, Felines.section, Insects.section, MammalsOther.section, Marsupials.section, Mustelids.section, Primates.section, Reptillian.section, Rodents.section, Vulpines.section, Other.section])
+            return  SettingModel(name: categoryName, sections: [UnspecifiedOrAny.section , Amphibian.section, Aquatic.section, Avian.section, BearsAndUrsines.section, Camelids.section, CaninesAndLupines.section, Cervines.section, CowsAndBovines.section, Dragons.section, Equestrians.section, ExoticAndMythicals.section, Felines.section, Insects.section, MammalsOther.section, Marsupials.section, Mustelids.section, Primates.section, Reptillian.section, Rodents.section, Vulpines.section, Other.section])
         }
     }
     
-    enum Amphibian: Int, BrowseSetting {
+    enum UnspecifiedOrAny: Int, BrowseSettingEnumProtocol {
+        
+        case `default` = 1
+        
+        static var categoryName: String {
+            return ""
+        }
+        
+        var name: String {
+            return "Unspecified / Any"
+        }
+        
+        var enumValue: Species {
+            return .unspecifiedOrAny(self)
+        }
+    }
+    
+    enum Amphibian: Int, BrowseSettingEnumProtocol {
+        
         case frog = 1001
         case newt
         case salamander
@@ -482,9 +783,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .amphibian(self)
+        }
     }
     
-    enum Aquatic: Int, BrowseSetting {
+    enum Aquatic: Int, BrowseSettingEnumProtocol {
+        
         case cephalopod = 2001
         case dolphin
         case fish
@@ -506,9 +812,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .aquatic(self)
+        }
     }
     
-    enum Avian: Int, BrowseSetting {
+    enum Avian: Int, BrowseSettingEnumProtocol {
+        
         case corvid = 3001
         case crow
         case duck
@@ -534,9 +845,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .avian(self)
+        }
     }
     
-    enum BearsAndUrsines: Int, BrowseSetting {
+    enum BearsAndUrsines: Int, BrowseSettingEnumProtocol {
+        
         case bear = 6002
         
         static var categoryName: String {
@@ -546,9 +862,14 @@ struct Browse {
         var name: String {
             return String(describing: self).capitalized
         }
+        
+        var enumValue: Species {
+            return .bearsAndUrsines(self)
+        }
     }
     
-    enum Camelids: Int, BrowseSetting {
+    enum Camelids: Int, BrowseSettingEnumProtocol {
+        
         case camel = 6074
         case lama = 6036
         
@@ -559,9 +880,14 @@ struct Browse {
         var name: String {
             return String(describing: self).capitalized
         }
+        
+        var enumValue: Species {
+            return .camelids(self)
+        }
     }
     
-    enum CaninesAndLupines: Int, BrowseSetting {
+    enum CaninesAndLupines: Int, BrowseSettingEnumProtocol {
+        
         case coyote = 6008
         case doberman
         case dog
@@ -586,9 +912,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .caninesAndLupines(self)
+        }
     }
     
-    enum Cervines: Int, BrowseSetting {
+    enum Cervines: Int, BrowseSettingEnumProtocol {
+        
         case cervineOther = 6018
         
         static var categoryName: String {
@@ -601,9 +932,14 @@ struct Browse {
                 return "Cervine (Other)"
             }
         }
+        
+        var enumValue: Species {
+            return .cervines(self)
+        }
     }
     
-    enum CowsAndBovines: Int, BrowseSetting {
+    enum CowsAndBovines: Int, BrowseSettingEnumProtocol {
+        
         case antelope = 6004
         case cows = 6003
         case gazelle = 6005
@@ -622,9 +958,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .cowsAndBovines(self)
+        }
     }
     
-    enum Dragons: Int, BrowseSetting {
+    enum Dragons: Int, BrowseSettingEnumProtocol {
+        
         case easternDragon = 4001
         case hydra
         case serpent
@@ -648,9 +989,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .dragons(self)
+        }
     }
     
-    enum Equestrians: Int, BrowseSetting {
+    enum Equestrians: Int, BrowseSettingEnumProtocol {
+        
         case donkey = 6019
         case horse = 6034
         case pony = 6073
@@ -663,9 +1009,14 @@ struct Browse {
         var name: String {
             return String(describing: self).capitalized
         }
+        
+        var enumValue: Species {
+            return .equestrians(self)
+        }
     }
     
-    enum ExoticAndMythicals: Int, BrowseSetting {
+    enum ExoticAndMythicals: Int, BrowseSettingEnumProtocol {
+        
         case argonian = 5002
         case chakat
         case chocobo
@@ -708,9 +1059,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .exoticAndMythicals(self)
+        }
     }
     
-    enum Felines: Int, BrowseSetting {
+    enum Felines: Int, BrowseSettingEnumProtocol {
+        
         case domesticCat = 6020
         case cheetah
         case cougar
@@ -737,9 +1093,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .felines(self)
+        }
     }
     
-    enum Insects: Int, BrowseSetting {
+    enum Insects: Int, BrowseSettingEnumProtocol {
+        
         case arachnid = 8000
         case mantid = 8004
         case scorpion
@@ -757,9 +1118,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .insects(self)
+        }
     }
     
-    enum MammalsOther: Int, BrowseSetting {
+    enum MammalsOther: Int, BrowseSettingEnumProtocol {
+        
         case bat = 6001
         case giraffe = 6031
         case hedgehog
@@ -793,9 +1159,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .mammalsOther(self)
+        }
     }
     
-    enum Marsupials: Int, BrowseSetting {
+    enum Marsupials: Int, BrowseSettingEnumProtocol {
+        
         case opossum = 6037
         case kangaroo
         case koala
@@ -815,9 +1186,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .marsupials(self)
+        }
     }
     
-    enum Mustelids: Int, BrowseSetting {
+    enum Mustelids: Int, BrowseSettingEnumProtocol {
+        
         case badger = 6045
         case ferret
         case mink = 6048
@@ -838,9 +1214,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .mustelids(self)
+        }
     }
     
-    enum Primates: Int, BrowseSetting {
+    enum Primates: Int, BrowseSettingEnumProtocol {
+        
         case gorilla = 6054
         case human
         case lemur
@@ -859,9 +1240,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .primates(self)
+        }
     }
     
-    enum Reptillian: Int, BrowseSetting {
+    enum Reptillian: Int, BrowseSettingEnumProtocol {
+        
         case alligatorAndCrocodile = 7001
         case gecko = 7003
         case iguana
@@ -885,9 +1271,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .reptillian(self)
+        }
     }
     
-    enum Rodents: Int, BrowseSetting {
+    enum Rodents: Int, BrowseSettingEnumProtocol {
+        
         case beaver = 6064
         case mouse
         case rat = 6061
@@ -906,9 +1297,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .rodents(self)
+        }
     }
     
-    enum Vulpines: Int, BrowseSetting {
+    enum Vulpines: Int, BrowseSettingEnumProtocol {
+        
         case fennec = 6072
         case fox = 6075
         case vulpineOther = 6015
@@ -925,9 +1321,14 @@ struct Browse {
                 return String(describing: self).capitalized
             }
         }
+        
+        var enumValue: Species {
+            return .vulpines(self)
+        }
     }
     
-    enum Other: Int, BrowseSetting {
+    enum Other: Int, BrowseSettingEnumProtocol {
+        
         case dinosaur = 8001
         case wolverine = 6050
         
@@ -938,11 +1339,15 @@ struct Browse {
         var name: String {
             return String(describing: self).capitalized
         }
+        
+        var enumValue: Species {
+            return .other(self)
+        }
     }
     
     //MARK: - Gender -
     
-    enum Gender: Int, BrowseSetting {
+    enum Gender: Int, BrowseSettingEnumProtocol {
         
         static var allCases: [Gender] {
             return [.any, .male, .female, .herm, .transgender, .multipleCharacters, .otherOrNotSpecified]
@@ -972,32 +1377,11 @@ struct Browse {
         }
         
         static var model: SettingModel {
-            return SettingModel(sections: [Gender.section])
-        }
-    }
-    
-    //MARK: - Results -
-    
-    enum Results: Int, BrowseSetting {
-        
-        static var allCases: [Results] {
-            return [.tf, .fe, .st]
+            return SettingModel(name: categoryName, sections: [Gender.section])
         }
         
-        case tf = 24
-        case fe = 48
-        case st = 72
-        
-        static var categoryName: String {
-            return "Results"
-        }
-        
-        var name: String {
-            return rawValue.description
-        }
-        
-        static var model: SettingModel {
-            return SettingModel(sections: [Results.section])
+        var enumValue: Gender {
+            return self
         }
     }
 }
@@ -1009,13 +1393,18 @@ protocol BrowseSetting: CaseIterable {
     var name: String {get}
 }
 
-extension BrowseSetting where Self: RawRepresentable {
+protocol BrowseSettingEnumProtocol: BrowseSetting, RawRepresentable {
+    associatedtype BrowseSettingType: BrowseSetting
+    var enumValue: BrowseSettingType {get}
+}
 
+extension BrowseSettingEnumProtocol where Self: RawRepresentable {
+    
     var rawString: String {
         return String(describing: rawValue)
     }
     
     static var section: SettingSection {
-        return SettingSection(category: categoryName, items: allCases.map{SettingItem(text: $0.name, value: $0.rawString)})
+        return SettingSection(name: categoryName, items: allCases.map{SettingItem(text: $0.name, value: $0.rawString, enumValue: $0.enumValue)})
     }
 }

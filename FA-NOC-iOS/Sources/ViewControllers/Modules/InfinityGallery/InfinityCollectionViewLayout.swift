@@ -9,7 +9,7 @@
 import UIKit
 
 protocol InfinityCollectionViewLayoutDelegate: NSObjectProtocol {
-    func collectionView(_ collectionView:UICollectionView, heightAtIndexPath indexPath:IndexPath) -> Double
+    func collectionView(_ collectionView:UICollectionView, heightRatioAtIndexPath indexPath:IndexPath) -> Double
 }
 
 class InfinityCollectionViewLayout: UICollectionViewLayout {
@@ -80,6 +80,19 @@ class InfinityCollectionViewLayout: UICollectionViewLayout {
         return CGSize(width: collectionView.bounds.width-contentInset.left-contentInset.right, height: height)
     }
     
+    var cellWidth: Double {
+        
+        guard let collectionView = collectionView else { return 0 }
+        
+        let viewWidth = Double(collectionView.bounds.width)
+        let contentInset = collectionView.contentInset
+        let emptyWidth = Double(contentInset.left+contentInset.right) + Double(numberOfColumns-1)*cellSpacing
+        
+        let cellWidth = (viewWidth-emptyWidth)/Double(numberOfColumns)
+        
+        return cellWidth
+    }
+    
     override func prepare() {
         
         guard let collectionView = collectionView else { return }
@@ -87,14 +100,12 @@ class InfinityCollectionViewLayout: UICollectionViewLayout {
         let lastIndex = collectionView.numberOfItems(inSection: 0)-1
         guard lastIndex >= globalIndex else { return }
         
-        let doubleNumberOfColumns = Double(numberOfColumns)
-        let width = (Double(collectionView.bounds.width-collectionView.contentInset.left-collectionView.contentInset.right)-cellSpacing*(doubleNumberOfColumns-1.0))/doubleNumberOfColumns
-        
+        let width = cellWidth
         for item in globalIndex...lastIndex {
             
             let indexPath = IndexPath(item: item, section: 0)
             
-            let height = delegate.collectionView(collectionView, heightAtIndexPath: indexPath)
+            let height = width*delegate.collectionView(collectionView, heightRatioAtIndexPath: indexPath)
             
             let offset = nextColumnOffset
             let offsetX = (width+cellSpacing)*Double(offset.0)

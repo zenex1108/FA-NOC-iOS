@@ -15,23 +15,27 @@ class API: NSObject {
     
     static func login(_ model:LoginModel) -> Observable<(HTTPURLResponse, String)> {
         return SessionManager.default.rx
-            .request(.post, FaUrl.login, parameters: model.callParameters)
+            .request(.post, FaUrl.login, parameters: model.requestModel.toJSON())
             .responseString(encoding: .utf8)
             .do(onNext: {_ in HTTPCookieStorage.save()})
     }
     
     static func browse(_ page:Int) -> Observable<(HTTPURLResponse, String)> {
-        var parameters = Settings.getBrowse()
-        parameters["page"] = page.description
-        parameters["go"] = "Apply"
         
-        //temp
-        parameters["rating_mature"] = "on"
-        parameters["rating_adult"] = "on"
+        let requestModel = Settings.getBrowse()
+        requestModel.page = page.description
+        print(requestModel.toJSON())
         
         return SessionManager.default.rx
-            .request(.post, FaUrl.browse, parameters: parameters)
+            .request(.post, FaUrl.browse, parameters: requestModel.toJSON())
+            .timeout(10, scheduler: ConcurrentDispatchQueueScheduler(qos: .background))
             .responseString()
     }
     
+    static func view(_ id:String) -> Observable<(HTTPURLResponse, String)> {
+        return SessionManager.default.rx
+            .request(.get, FaUrl.view(id))
+            .timeout(10, scheduler: ConcurrentDispatchQueueScheduler(qos: .background))
+            .responseString()
+    }
 }
