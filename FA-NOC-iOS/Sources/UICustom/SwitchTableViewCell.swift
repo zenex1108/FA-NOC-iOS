@@ -15,8 +15,8 @@ class SwitchTableViewCell: UITableViewCell {
     weak var delegate: SettingDetailDelegate?
     var disposeBag: DisposeBag!
 
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var toggleSwitch: UISwitch!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var toggleSwitch: UISwitch!
 
     func binding(model: SettingModel) {
         

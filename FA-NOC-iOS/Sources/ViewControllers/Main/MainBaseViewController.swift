@@ -10,7 +10,7 @@ import UIKit
 
 class MainBaseViewController: UIViewController {
 
-    @IBOutlet var settingBarButtonItem: UIBarButtonItem!
+    @IBOutlet private weak var settingBarButtonItem: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()

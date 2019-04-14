@@ -15,8 +15,8 @@ class NumbersTableViewCell: UITableViewCell {
     weak var delegate: SettingDetailDelegate?
     var disposeBag: DisposeBag!
 
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var numbersSegment: UISegmentedControl!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var numbersSegment: UISegmentedControl!
 
     func binding(model: SettingModel) {
         

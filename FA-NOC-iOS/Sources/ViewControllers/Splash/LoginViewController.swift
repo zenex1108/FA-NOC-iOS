@@ -20,21 +20,21 @@ import WeakableSelf
 
 class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDelegate {
     
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var contentView: UIView!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var contentView: UIView!
     
-    @IBOutlet weak private var recaptchView: ReCaptcha!
+    @IBOutlet private weak var private var recaptchView: ReCaptcha!
     
-    @IBOutlet weak private var reCaptchaGuideBasic: UIView!
-    @IBOutlet weak private var reCaptchaGuideTest: UIView!
-    @IBOutlet weak var reCaptchaCancelButton: UIButton!
+    @IBOutlet private weak var private var reCaptchaGuideBasic: UIView!
+    @IBOutlet private weak var private var reCaptchaGuideTest: UIView!
+    @IBOutlet private weak var reCaptchaCancelButton: UIButton!
     
-    @IBOutlet weak var usernameTextField: UIBarTextField!
-    @IBOutlet weak var passwordTextField: UIBarTextField!
+    @IBOutlet private weak var usernameTextField: UIBarTextField!
+    @IBOutlet private weak var passwordTextField: UIBarTextField!
     
-    @IBOutlet weak var loginButton: LGButton!
-    @IBOutlet weak var loginButtonBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var loginButton: LGButton!
+    @IBOutlet private weak var loginButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var bottomConstraint: NSLayoutConstraint!
     
     private var token = BehaviorRelay<String?>(value: nil)
     

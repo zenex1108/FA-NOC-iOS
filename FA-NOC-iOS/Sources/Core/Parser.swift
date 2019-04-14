@@ -195,6 +195,13 @@ class Parser: NSObject {
                  */
                 let description = try document.select(".maintable").select(".alt1").get(4)
                 
+                submission.description = try description.text()
+                
+                let tempCommentList = try document.select(".container-comment")
+                let commentListSet = try CommentModelSet(elements: tempCommentList, theme: theme, url: response.url!)
+                
+                submission.commentsSet = commentListSet
+                
                 print("")
             }else if theme == .beta {
                 
@@ -248,6 +255,8 @@ class Parser: NSObject {
                  </div>
                 */
                 let description = try document.select(".submission-description-container").first()
+                
+                submission.description = try description?.text()
                 
                 print("")
             }

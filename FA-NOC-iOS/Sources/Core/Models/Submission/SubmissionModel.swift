@@ -28,6 +28,10 @@ class SubmissionModel {
     
     var userThumbnail: URL!
     
+    var description: String!
+    
+    var commentsSet: CommentModelSet!
+    
     init(_ galleryModel: GalleryItemModel) {
         self.galleryModel = galleryModel
     }

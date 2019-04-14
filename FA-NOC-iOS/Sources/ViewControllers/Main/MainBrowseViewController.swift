@@ -12,7 +12,7 @@ import NSObject_Rx
 
 class MainBrowseViewController: MainBaseViewController {
 
-    @IBOutlet var infinityGalleryView: InfinityGallery!
+    @IBOutlet private weak var infinityGalleryView: InfinityGallery!
     
     private var page: Int = 0
     
