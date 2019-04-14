@@ -23,10 +23,10 @@ class LoginViewController: UIViewController, ReCaptchaDelegate, UIBarTextFieldDe
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var contentView: UIView!
     
-    @IBOutlet private weak var private var recaptchView: ReCaptcha!
+    @IBOutlet private weak var recaptchView: ReCaptcha!
     
-    @IBOutlet private weak var private var reCaptchaGuideBasic: UIView!
-    @IBOutlet private weak var private var reCaptchaGuideTest: UIView!
+    @IBOutlet private weak var reCaptchaGuideBasic: UIView!
+    @IBOutlet private weak var reCaptchaGuideTest: UIView!
     @IBOutlet private weak var reCaptchaCancelButton: UIButton!
     
     @IBOutlet private weak var usernameTextField: UIBarTextField!
