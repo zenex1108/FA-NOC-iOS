@@ -21,6 +21,10 @@ class MainBrowseViewController: MainBaseViewController {
         
         infinityGalleryView.infGalleryDelegate = self
         infinityGalleryView.numberOfColumns.accept(Int(Settings.getBrowse().columnCount)!)
+        
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: view)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -81,5 +85,33 @@ extension MainBrowseViewController: SettingTableViewControllerDelegate {
         }else{
             preLoading(in: infinityGalleryView, initialLoad: true)
         }
+    }
+}
+
+extension MainBrowseViewController: UIViewControllerPreviewingDelegate {
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.navigationController?.show(viewControllerToCommit, sender: self)
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        let locationCell = infinityGalleryView.convert(location, from: view)
+        
+        guard let indexPath = infinityGalleryView.indexPathForItem(at: locationCell) else {
+            print(locationCell)
+            print("Cell Not found")
+            return nil
+        }
+        
+        print("indexPath.row :: \(indexPath.row)")
+        guard let cell = infinityGalleryView.cellForItem(at: indexPath) else { return nil }
+        
+        let viewController = SubmissionViewController.loadViewController(.Submission)
+        viewController.galleryModel = infinityGalleryView.item(indexPath)
+        
+        previewingContext.sourceRect = infinityGalleryView.convert(cell.frame, to: infinityGalleryView.superview)
+        
+        return viewController
     }
 }

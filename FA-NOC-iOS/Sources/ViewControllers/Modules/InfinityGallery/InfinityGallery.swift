@@ -174,6 +174,12 @@ class InfinityGallery: InfinityCollectionView {
         
         return GalleryPlaceholder(width: width, heightRatio: heightRatio, tip: tip)
     }
+    
+    public func item(_ indexPath: IndexPath) -> GalleryItemModel? {
+        let index = indexPath.item
+        guard index >= 0 && index < items.count else { return nil }
+        return items[index]
+    }
 }
 
 extension InfinityGallery: InfinityCollectionViewDataSource {

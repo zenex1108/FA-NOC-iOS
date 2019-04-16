@@ -30,17 +30,17 @@
 		01072F2821E076C1002DA60F /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01072F2721E076C1002DA60F /* SettingModel.swift */; };
 		01072F2A21E1A2CC002DA60F /* NumbersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01072F2921E1A2CC002DA60F /* NumbersTableViewCell.swift */; };
 		01072F2C21E1C155002DA60F /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01072F2B21E1C155002DA60F /* Queue.swift */; };
+		010B76872266063900CA196C /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B76862266063900CA196C /* CommentCell.swift */; };
+		010B768922660C0D00CA196C /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B768822660C0D00CA196C /* ImageCell.swift */; };
+		010B768B22660DF600CA196C /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B768A22660DF600CA196C /* InfoCell.swift */; };
+		010B768D22660F2F00CA196C /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B768C22660F2F00CA196C /* ContentCell.swift */; };
+		010B768F22660F7E00CA196C /* SubmissionCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B768E22660F7E00CA196C /* SubmissionCellProtocol.swift */; };
+		010B76912266116900CA196C /* KeywordsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B76902266116900CA196C /* KeywordsCell.swift */; };
 		010D62452261E19700376B72 /* UIViewControllerLoadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D62432261E19600376B72 /* UIViewControllerLoadProtocol.swift */; };
 		010D62462261E19700376B72 /* UIViewLoadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D62442261E19600376B72 /* UIViewLoadProtocol.swift */; };
 		010D62492261E2E800376B72 /* SubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D62482261E2E800376B72 /* SubmissionViewController.swift */; };
-		010D624B226301BA00376B72 /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D624A226301BA00376B72 /* MediaView.swift */; };
-		010D624F226302F200376B72 /* ReadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D624E226302F200376B72 /* ReadableView.swift */; };
-		010D62512263031200376B72 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D62502263031200376B72 /* AudioView.swift */; };
 		010D625322631AAB00376B72 /* CommentModelSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D625222631AAB00376B72 /* CommentModelSet.swift */; };
 		010D625522631AC000376B72 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D625422631AC000376B72 /* CommentModel.swift */; };
-		010D625722639A2C00376B72 /* CommentsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D625622639A2C00376B72 /* CommentsStackView.swift */; };
-		010D625922639BE100376B72 /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 010D625822639BE100376B72 /* CommentView.xib */; };
-		010D625B22639BF300376B72 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D625A22639BF300376B72 /* CommentView.swift */; };
 		012C6B3121C8CF5700D15168 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012C6B3021C8CF5700D15168 /* Theme.swift */; };
 		012C6B4721C9348900D15168 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012C6B4621C9348900D15168 /* MainTabBarController.swift */; };
 		012C6B4921C9352A00D15168 /* MainSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012C6B4821C9352A00D15168 /* MainSearchViewController.swift */; };
@@ -124,17 +124,17 @@
 		01072F2721E076C1002DA60F /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
 		01072F2921E1A2CC002DA60F /* NumbersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumbersTableViewCell.swift; sourceTree = "<group>"; };
 		01072F2B21E1C155002DA60F /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		010B76862266063900CA196C /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		010B768822660C0D00CA196C /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		010B768A22660DF600CA196C /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
+		010B768C22660F2F00CA196C /* ContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
+		010B768E22660F7E00CA196C /* SubmissionCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionCellProtocol.swift; sourceTree = "<group>"; };
+		010B76902266116900CA196C /* KeywordsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsCell.swift; sourceTree = "<group>"; };
 		010D62432261E19600376B72 /* UIViewControllerLoadProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerLoadProtocol.swift; sourceTree = "<group>"; };
 		010D62442261E19600376B72 /* UIViewLoadProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewLoadProtocol.swift; sourceTree = "<group>"; };
 		010D62482261E2E800376B72 /* SubmissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionViewController.swift; sourceTree = "<group>"; };
-		010D624A226301BA00376B72 /* MediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
-		010D624E226302F200376B72 /* ReadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadableView.swift; sourceTree = "<group>"; };
-		010D62502263031200376B72 /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
 		010D625222631AAB00376B72 /* CommentModelSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModelSet.swift; sourceTree = "<group>"; };
 		010D625422631AC000376B72 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
-		010D625622639A2C00376B72 /* CommentsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsStackView.swift; sourceTree = "<group>"; };
-		010D625822639BE100376B72 /* CommentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
-		010D625A22639BF300376B72 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		012C6B3021C8CF5700D15168 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		012C6B4621C9348900D15168 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		012C6B4821C9352A00D15168 /* MainSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSearchViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +234,19 @@
 				01072F2121DFC15A002DA60F /* SettingDetailTableViewController.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		010B7685226605FA00CA196C /* Submisson */ = {
+			isa = PBXGroup;
+			children = (
+				010B768E22660F7E00CA196C /* SubmissionCellProtocol.swift */,
+				010B76862266063900CA196C /* CommentCell.swift */,
+				010B768822660C0D00CA196C /* ImageCell.swift */,
+				010B768A22660DF600CA196C /* InfoCell.swift */,
+				010B768C22660F2F00CA196C /* ContentCell.swift */,
+				010B76902266116900CA196C /* KeywordsCell.swift */,
+			);
+			path = Submisson;
 			sourceTree = "<group>";
 		};
 		010D62422261E17300376B72 /* Protocols */ = {
@@ -396,15 +409,10 @@
 		0173347A2191E22600298AB1 /* UICustom */ = {
 			isa = PBXGroup;
 			children = (
+				010B7685226605FA00CA196C /* Submisson */,
 				0173347B2191E26500298AB1 /* UIBarTextField.swift */,
 				01072F1F21DFBA02002DA60F /* SwitchTableViewCell.swift */,
 				01072F2921E1A2CC002DA60F /* NumbersTableViewCell.swift */,
-				010D624A226301BA00376B72 /* MediaView.swift */,
-				010D624E226302F200376B72 /* ReadableView.swift */,
-				010D62502263031200376B72 /* AudioView.swift */,
-				010D625622639A2C00376B72 /* CommentsStackView.swift */,
-				010D625822639BE100376B72 /* CommentView.xib */,
-				010D625A22639BF300376B72 /* CommentView.swift */,
 			);
 			path = UICustom;
 			sourceTree = "<group>";
@@ -646,7 +654,6 @@
 				01E6E462218ECAE40054F0B1 /* Main.storyboard in Resources */,
 				0173346F2191D46200298AB1 /* User.storyboard in Resources */,
 				01038CAD21D0A07100134308 /* InfinityGalleryCell.xib in Resources */,
-				010D625922639BE100376B72 /* CommentView.xib in Resources */,
 				0173346D2191D44D00298AB1 /* Notification.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -849,7 +856,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				01038CBB21D0B6AB00134308 /* NSObjectEx.swift in Sources */,
-				010D624F226302F200376B72 /* ReadableView.swift in Sources */,
 				01038CBD21D11D7900134308 /* GalleryItemModel.swift in Sources */,
 				010D62492261E2E800376B72 /* SubmissionViewController.swift in Sources */,
 				012C6B4D21C9355A00D15168 /* MainMyPageViewController.swift in Sources */,
@@ -863,6 +869,7 @@
 				01908877219321250038A4F4 /* UITextFieldExt.swift in Sources */,
 				010334E221C4FAD000CB3D15 /* UIAlertControllerExt.swift in Sources */,
 				01038CB321D0A9AA00134308 /* UICollectionViewEx.swift in Sources */,
+				010B768922660C0D00CA196C /* ImageCell.swift in Sources */,
 				01038CB921D0B5CA00134308 /* InfinityGalleryCell.swift in Sources */,
 				01361D0621C299B900E1B3F4 /* BaseViewController.swift in Sources */,
 				012C6B5821C93B9B00D15168 /* MainBaseViewController.swift in Sources */,
@@ -874,6 +881,7 @@
 				010D625322631AAB00376B72 /* CommentModelSet.swift in Sources */,
 				0102C90D21DA59FE00C9D3AF /* InfinityCollectionViewLayout.swift in Sources */,
 				012C6B4F21C9356D00D15168 /* MainNotificationsViewController.swift in Sources */,
+				010B768D22660F2F00CA196C /* ContentCell.swift in Sources */,
 				012C6B5121C9357A00D15168 /* MainSubmissionsViewController.swift in Sources */,
 				010D62462261E19700376B72 /* UIViewLoadProtocol.swift in Sources */,
 				01038CB121D0A94F00134308 /* UITableViewEx.swift in Sources */,
@@ -886,8 +894,7 @@
 				01B6365721B6A2CE00991B6F /* API.swift in Sources */,
 				012C6B4921C9352A00D15168 /* MainSearchViewController.swift in Sources */,
 				01072F2821E076C1002DA60F /* SettingModel.swift in Sources */,
-				010D624B226301BA00376B72 /* MediaView.swift in Sources */,
-				010D625B22639BF300376B72 /* CommentView.swift in Sources */,
+				010B76872266063900CA196C /* CommentCell.swift in Sources */,
 				01B6365021B6A17100991B6F /* Parser.swift in Sources */,
 				01B6365521B6A20000991B6F /* Session.swift in Sources */,
 				01072F1E21DFB1A0002DA60F /* SettingTableViewController.swift in Sources */,
@@ -895,12 +902,13 @@
 				0102C90B21DA3F1400C9D3AF /* UIViewEx.swift in Sources */,
 				017334772191DD3400298AB1 /* SplashViewController.swift in Sources */,
 				01038CB521D0AF7D00134308 /* InfinityGallery.swift in Sources */,
+				010B768B22660DF600CA196C /* InfoCell.swift in Sources */,
 				0102C90921DA2A6100C9D3AF /* StringEx.swift in Sources */,
 				012C6B4B21C9354000D15168 /* MainBrowseViewController.swift in Sources */,
+				010B768F22660F7E00CA196C /* SubmissionCellProtocol.swift in Sources */,
 				01072F2221DFC15A002DA60F /* SettingDetailTableViewController.swift in Sources */,
-				010D625722639A2C00376B72 /* CommentsStackView.swift in Sources */,
 				0173347C2191E26500298AB1 /* UIBarTextField.swift in Sources */,
-				010D62512263031200376B72 /* AudioView.swift in Sources */,
+				010B76912266116900CA196C /* KeywordsCell.swift in Sources */,
 				01361D0A21C29F3B00E1B3F4 /* Parameters.swift in Sources */,
 				012C6B5621C93B1700D15168 /* InfinityCollectionView.swift in Sources */,
 				01072F1B21DF9AD7002DA60F /* GalleryPlaceholder.swift in Sources */,
