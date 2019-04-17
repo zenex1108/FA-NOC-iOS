@@ -195,7 +195,7 @@ class Parser: NSObject {
                  */
                 let description = try document.select(".maintable").select(".alt1").get(4)
                 
-                submission.description = try description.text()
+                submission.description = try description.html()
                 
                 let tempCommentList = try document.select(".container-comment")
                 let commentListSet = try CommentModelSet(elements: tempCommentList, theme: theme, url: response.url!)
@@ -254,9 +254,16 @@ class Parser: NSObject {
                  <br> Renamon version of my character is mine/*end*/
                  </div>
                 */
-                let description = try document.select(".submission-description-container").first()
+                let description = try document.select(".submission-description-container")
                 
-                submission.description = try description?.text()
+                let descriptionHtml = try description.html()
+                let titleAndDate = try description.select(".submission-title").outerHtml()
+                submission.description = descriptionHtml.replacingOccurrences(of: titleAndDate, with: "").trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                let tempCommentList = try document.select("div[class^=comment_container]")
+                let commentListSet = try CommentModelSet(elements: tempCommentList, theme: theme, url: response.url!)
+                
+                submission.commentsSet = commentListSet
                 
                 print("")
             }

@@ -48,6 +48,7 @@ class SubmissionViewController: BaseViewContorller {
             titleLabel.font = UIFont.systemFont(ofSize: 17.0, weight: .bold)
             return titleLabel
         }()
+        navigationTitleLabel.text = galleryModel?.title
         navigationItem.titleView = navigationTitleLabel
         
         tableView.rowHeight = UITableView.automaticDimension
@@ -113,16 +114,10 @@ extension SubmissionViewController {
         
         //////////////////////////////////////////////////////////
         
-        let shared = Service.view(galleryModel).share()
-        
-        shared.map{$0.galleryModel.title}
-            .do(onNext: {[weak self] _ in self?.indicator.stopAnimating()})
-            .bind(to: navigationTitleLabel.rx.text)
-            .disposed(by: rx.disposeBag)
-        
-        shared.map { model -> [SubmissonSection] in
-            return [SubmissonSection(items: [model,model,model,model]),
-                    SubmissonSection(items: model.commentsSet.comments)]
+        Service.view(galleryModel)
+            .map { model -> [SubmissonSection] in
+                return [SubmissonSection(items: [model,model,model,model]),
+                        SubmissonSection(items: model.commentsSet.comments)]
             }.bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
     }
