@@ -18,13 +18,11 @@ class CommentCell: UITableViewCell, CommentCellProtocol {
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var commentLabel: UILabel!
     
-    @IBOutlet private weak var replyButton: UIButton!
-    
     private var _step: Int = 0
     private var step: Int {
         set{
             _step = newValue
-            leftMarginConstraint.constant = UIScreen.main.bounds.width*CGFloat(newValue)*0.05
+            leftMarginConstraint.constant = UIScreen.main.bounds.width*CGFloat(newValue)*0.03
         }
         get{
             return _step

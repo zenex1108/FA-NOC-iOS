@@ -24,7 +24,8 @@ class ImageCell: UITableViewCell, SubmissionCellProtocol {
         
         let screenWidth = Double(UIScreen.main.bounds.width)
         let ratio = model.galleryModel.ratio!
-        let height = screenWidth*ratio
+        var height = screenWidth*ratio
+        height -= height.truncatingRemainder(dividingBy: 0.5)
         
         let placeholder = GalleryPlaceholder(width: screenWidth,
                                              heightRatio: ratio,

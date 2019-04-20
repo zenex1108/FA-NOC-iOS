@@ -110,6 +110,16 @@ extension MainBrowseViewController: UIViewControllerPreviewingDelegate {
         let viewController = SubmissionViewController.loadViewController(.Submission)
         viewController.galleryModel = infinityGalleryView.item(indexPath)
         
+        if let model = infinityGalleryView.item(indexPath) {
+            viewController.galleryModel = model
+            
+            let width = Double(viewController.view.bounds.width)
+            var height = width * min(model.ratio, infinityGalleryView.maximumRatio(in: infinityGalleryView))
+            height -= height.truncatingRemainder(dividingBy: 0.5)
+            
+            viewController.preferredContentSize = CGSize(width: width, height: height)
+        }
+        
         previewingContext.sourceRect = infinityGalleryView.convert(cell.frame, to: infinityGalleryView.superview)
         
         return viewController

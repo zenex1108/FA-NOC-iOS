@@ -30,6 +30,7 @@
 		01072F2821E076C1002DA60F /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01072F2721E076C1002DA60F /* SettingModel.swift */; };
 		01072F2A21E1A2CC002DA60F /* NumbersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01072F2921E1A2CC002DA60F /* NumbersTableViewCell.swift */; };
 		01072F2C21E1C155002DA60F /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01072F2B21E1C155002DA60F /* Queue.swift */; };
+		010B27EA22694BD5002E76AA /* MarginTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B27E922694BD5002E76AA /* MarginTagListView.swift */; };
 		010B76872266063900CA196C /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B76862266063900CA196C /* CommentCell.swift */; };
 		010B768922660C0D00CA196C /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B768822660C0D00CA196C /* ImageCell.swift */; };
 		010B768B22660DF600CA196C /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B768A22660DF600CA196C /* InfoCell.swift */; };
@@ -124,6 +125,7 @@
 		01072F2721E076C1002DA60F /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
 		01072F2921E1A2CC002DA60F /* NumbersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumbersTableViewCell.swift; sourceTree = "<group>"; };
 		01072F2B21E1C155002DA60F /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		010B27E922694BD5002E76AA /* MarginTagListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginTagListView.swift; sourceTree = "<group>"; };
 		010B76862266063900CA196C /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		010B768822660C0D00CA196C /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		010B768A22660DF600CA196C /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 				0173347B2191E26500298AB1 /* UIBarTextField.swift */,
 				01072F1F21DFBA02002DA60F /* SwitchTableViewCell.swift */,
 				01072F2921E1A2CC002DA60F /* NumbersTableViewCell.swift */,
+				010B27E922694BD5002E76AA /* MarginTagListView.swift */,
 			);
 			path = UICustom;
 			sourceTree = "<group>";
@@ -907,6 +910,7 @@
 				012C6B4B21C9354000D15168 /* MainBrowseViewController.swift in Sources */,
 				010B768F22660F7E00CA196C /* SubmissionCellProtocol.swift in Sources */,
 				01072F2221DFC15A002DA60F /* SettingDetailTableViewController.swift in Sources */,
+				010B27EA22694BD5002E76AA /* MarginTagListView.swift in Sources */,
 				0173347C2191E26500298AB1 /* UIBarTextField.swift in Sources */,
 				010B76912266116900CA196C /* KeywordsCell.swift in Sources */,
 				01361D0A21C29F3B00E1B3F4 /* Parameters.swift in Sources */,
