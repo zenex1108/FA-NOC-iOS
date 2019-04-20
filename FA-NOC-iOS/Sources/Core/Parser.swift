@@ -145,7 +145,7 @@ class Parser: NSObject {
             
             submission.contentOriginalUrl = URL(string: "https:\(originalImageUrl!)")!
             submission.favUrl = FaUrl.makeURL(strRef: favUrl!)
-            submission.keywords = keywords
+            submission.keywords = Array(OrderedSet(sequence: keywords))
             
             if theme == .classic {
                 
@@ -195,7 +195,9 @@ class Parser: NSObject {
                  */
                 let description = try document.select(".maintable").select(".alt1").get(4)
                 
-                submission.description = try description.html()
+                let descriptionHtml = try description.submissionDescription()
+                let avatar = try description.select("a").get(0).outerHtml()
+                submission.description = descriptionHtml.replacingOccurrences(of: avatar, with: "").trimmingCharacters(in: .whitespacesAndNewlines)
                 
                 let tempCommentList = try document.select(".container-comment")
                 let commentListSet = try CommentModelSet(elements: tempCommentList, theme: theme, url: response.url!)
@@ -256,7 +258,7 @@ class Parser: NSObject {
                 */
                 let description = try document.select(".submission-description-container")
                 
-                let descriptionHtml = try description.html()
+                let descriptionHtml = try description.submissionDescription()
                 let titleAndDate = try description.select(".submission-title").outerHtml()
                 submission.description = descriptionHtml.replacingOccurrences(of: titleAndDate, with: "").trimmingCharacters(in: .whitespacesAndNewlines)
                 
@@ -304,5 +306,90 @@ extension String {
     
     var avatarAlt: String {
         return replacingOccurrences(of:"_", with:"").lowercased()
+    }
+    
+    var replaceEntity: String {
+        return replacingOccurrences(of: "\n<", with: "<")
+            .replacingOccurrences(of: "<br>", with: "\n")
+            .replacingOccurrences(of: "&nbsp;", with: " ")
+            .replacingOccurrences(of: "&lt;", with: "<")
+            .replacingOccurrences(of: "&gt;", with: ">")
+            .replacingOccurrences(of: "&amp;", with: "&")
+            .replacingOccurrences(of: "&quot;", with: "\"")
+            .replacingOccurrences(of: "&apos;", with: "'")
+            .replacingOccurrences(of: "&cent;", with: "¢")
+            .replacingOccurrences(of: "&pound;", with: "£")
+            .replacingOccurrences(of: "&yen;", with: "¥")
+            .replacingOccurrences(of: "&euro;", with: "€")
+            .replacingOccurrences(of: "&copy;", with: "©")
+            .replacingOccurrences(of: "&reg;", with: "®")
+    }
+    
+    var submissionDescription: String {
+        return replaceEntity
+            .replaceEmojis()
+    }
+    
+    var submissionComment: String {
+        return replaceEntity
+            .replaceEmojis()
+    }
+    
+    func replaceEmojis() -> String {
+        return replaceEmojiIcon("tongue", replace: "😛")
+            .replaceEmojiIcon("cool", replace: "😎")
+            .replaceEmojiIcon("wink", replace: "😉")
+            .replaceEmojiIcon("oooh", replace: "😮")
+            .replaceEmojiIcon("smile", replace: "🙂")
+            .replaceEmojiIcon("evil", replace: "😈")
+            .replaceEmojiIcon("huh", replace: "🤔")
+            .replaceEmojiIcon("whatever", replace: "🥴")
+            .replaceEmojiIcon("angel", replace: "😇")
+            .replaceEmojiIcon("badhairday", replace: "😕")
+            .replaceEmojiIcon("lmao", replace: "😂")
+            .replaceEmojiIcon("cd", replace: "💿")
+            .replaceEmojiIcon("crying", replace: "😭")
+            .replaceEmojiIcon("dunno", replace: "🤨")
+            .replaceEmojiIcon("embarrassed", replace: "😳")
+            .replaceEmojiIcon("gift", replace: "🎁")
+            .replaceEmojiIcon("coffee", replace: "☕️")
+            .replaceEmojiIcon("love", replace: "❤️")
+            .replaceEmojiIcon("nerd", replace: "🤓")
+            .replaceEmojiIcon("note", replace: "🎶")
+            .replaceEmojiIcon("derp", replace: "🤪")
+            .replaceEmojiIcon("sarcastic", replace: "😒")
+            .replaceEmojiIcon("serious", replace: "😟")
+            .replaceEmojiIcon("sad", replace: "☹️")
+            .replaceEmojiIcon("sleepy", replace: "😴")
+            .replaceEmojiIcon("teeth", replace: "😬")
+            .replaceEmojiIcon("veryhappy", replace: "😁")
+            .replaceEmojiIcon("yelling", replace: "🤬")
+            .replaceEmojiIcon("zipped", replace: "🤐")
+    }
+    
+    func replaceEmojiIcon(_ tag: String, replace: String) -> String {
+        return replacingOccurrences(of: "<i class=\"smilie \(tag)\"></i>", with: replace)
+    }
+}
+
+extension Element {
+    
+    func submissionDescription() throws -> String {
+        return try html().submissionDescription
+    }
+    
+    func submissionComment() throws -> String {
+        return try html().submissionComment
+    }
+}
+
+extension Elements {
+    
+    func submissionDescription() throws -> String {
+        return try html().submissionDescription
+    }
+    
+    func submissionComment() throws -> String {
+        return try html().submissionComment
     }
 }
