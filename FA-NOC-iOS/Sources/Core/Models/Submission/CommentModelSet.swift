@@ -22,7 +22,9 @@ class CommentModelSet {
             
             for element in elements {
                 
-                let urls = try element.select("a[href]")
+                let urls = try element.select("a[href]").map{try $0.attr("href")}
+                
+                guard urls.count > 0 else { continue }
                 
                 let tempId = try element.select("table").attr("id").components(separatedBy: "cid:").last
                 let timestamp = try element.attr("data-timestamp")
@@ -32,16 +34,16 @@ class CommentModelSet {
                 let tempAvatar = try element.select("img").attr("src")
                 let tempName = try element.select(".replyto-name").text()
                 
-                let tempUserPage = try urls.get(1).attr("href")
-                let tempGallery = try urls.get(2).attr("href")
-                let tempJounals = try urls.get(3).attr("href")
-                let tempSendNote = try urls.get(4).attr("href")
+                let tempUserPage = urls[1]
+                let tempGallery = urls[2]
+                let tempJounals = urls[3]
+                let tempSendNote = urls[4]
                 
-                let tempCommentLink = try urls.get(5).attr("href")
+                let tempCommentLink = urls[5]
                 
-                let tempComment = try element.select(".message-text").html()
+                let tempComment = try element.select(".message-text").submissionComment()
                 
-                let tempReply = try urls.get(6).attr("href")
+                let tempReply = urls[6]
                 
                 let commentModel = CommentModel(commentId: tempId!,
                                                 postedAt: Date(timeIntervalSince1970: TimeInterval(timestamp)!),
@@ -62,7 +64,9 @@ class CommentModelSet {
             
             for element in elements {
                 
-                let urls = try element.select("a[href]")
+                let urls = try element.select("a[href]").map{try $0.attr("href")}
+                
+                guard urls.count > 0 else { continue }
                 
                 let tempId = try element.select("div[id^=cid:]").attr("id").components(separatedBy: "cid:").last
                 let timestamp = try element.attr("data-timestamp")
@@ -72,16 +76,16 @@ class CommentModelSet {
                 let tempAvatar = try element.select("img").attr("src")
                 let tempName = try element.select(".comment_username").text()
                 
-                let tempUserPage = try urls.get(0).attr("href")
-                let tempGallery = try urls.get(4).attr("href")
-                let tempJounals = try urls.get(5).attr("href")
-                let tempSendNote = try urls.get(6).attr("href")
+                let tempUserPage = urls[0]
+                let tempGallery = urls[4]
+                let tempJounals = urls[5]
+                let tempSendNote = urls[6]
                 
-                let tempCommentLink = try urls.get(3).attr("href")
+                let tempCommentLink = urls[3]
                 
-                let tempComment = try element.select(".comment_text").html()
+                let tempComment = try element.select(".comment_text").submissionComment()
                 
-                let tempReply = try urls.get(7).attr("href")
+                let tempReply = urls[7]
                 
                 let commentModel = CommentModel(commentId: tempId!,
                                                 postedAt: Date(timeIntervalSince1970: TimeInterval(timestamp)!),
