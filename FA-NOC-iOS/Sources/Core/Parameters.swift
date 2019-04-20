@@ -569,7 +569,8 @@ struct Browse {
         case pregnancy
         case sonic
         case transformation
-        case vore
+        case tfOrTg = 120
+        case vore = 117
         case waterSports
         case generalFurryArt = 100
         
@@ -591,6 +592,8 @@ struct Browse {
                 return "Macro / Micro"
             case .myLittlePonyOrBrony:
                 return "My Little Pony / Brony"
+            case .tfOrTg:
+                return "TF / TG"
             case .waterSports:
                 return "Water Sports"
             case .generalFurryArt:
@@ -793,11 +796,11 @@ struct Browse {
         
         case cephalopod = 2001
         case dolphin
-        case fish
-        case porpoise
-        case seal
-        case shark
-        case whale
+        case fish = 2005
+        case porpoise = 2004
+        case seal = 6068
+        case shark = 2006
+        case whale = 2003
         case aquaticOther = 2000
         
         static var categoryName: String {
@@ -1038,7 +1041,8 @@ struct Browse {
         case satyr
         case sergal
         case tanuki
-        case unicorn
+        case taurGeneral = 5025
+        case unicorn = 5023
         case xenomorph
         case alienOther = 5001
         case exoticOther = 5000
@@ -1051,6 +1055,8 @@ struct Browse {
             switch self {
             case .kaijuOrMonster:
                 return "Kaiju/Monster"
+            case .taurGeneral:
+                return "Taur (General)"
             case .alienOther:
                 return "Alien (Other)"
             case .exoticOther:
@@ -1137,7 +1143,7 @@ struct Browse {
         case raccoon
         case redPanda = 6062
         case meerKat = 6043
-        case mongoose = 6044
+        case mongoose
         case rhinoceros = 6063
         case mammalsOther = 6000
         
@@ -1253,6 +1259,7 @@ struct Browse {
         case iguana
         case lizard
         case snakesAndSerpents
+        case turtle
         case reptilianOther = 7000
         
         static var categoryName: String {
@@ -1350,15 +1357,18 @@ struct Browse {
     enum Gender: Int, BrowseSettingEnumProtocol {
         
         static var allCases: [Gender] {
-            return [.any, .male, .female, .herm, .transgender, .multipleCharacters, .otherOrNotSpecified]
+            return [.any, .male, .female, .herm, .intersex, .transMale, .transFemale, .nonBinary, .multipleCharacters, .otherOrNotSpecified]
         }
         
         case any
         case male = 2
         case female
         case herm
-        case transgender
-        case multipleCharacters
+        case intersex = 11
+        case transMale = 8
+        case transFemale
+        case nonBinary
+        case multipleCharacters = 6
         case otherOrNotSpecified
         
         static var categoryName: String {
@@ -1371,6 +1381,12 @@ struct Browse {
                 return "Multiple characters"
             case .otherOrNotSpecified:
                 return "Other / Not Specified"
+            case .transMale:
+                return "Trans (Male)"
+            case .transFemale:
+                return "Trans (Female)"
+            case .nonBinary:
+                return "Non-Binary"
             default:
                 return String(describing: self).capitalized
             }
