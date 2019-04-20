@@ -23,6 +23,15 @@ class SettingDetailTableViewController: UITableViewController {
         
         title = model.name
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        model.sections.enumerated()
+            .map{($0.offset, $0.element.items.enumerated().filter{$0.element.selected}.first?.offset)}
+            .compactMap{$0.1 == nil ? nil : ($0.0,$0.1!)}.map{IndexPath(row: $1, section: $0)}
+            .forEach{tableView.scrollToRow(at: $0, at: .middle, animated: false)}
+    }
 
     // MARK: - Table view data source
 
