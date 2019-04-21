@@ -14,12 +14,6 @@ class ImageCell: UITableViewCell, SubmissionCellProtocol {
     @IBOutlet private weak var thumbnailImageView: UIImageView!
     @IBOutlet private weak var imageHeightConstraint: NSLayoutConstraint!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
     func bind(_ model: SubmissionModel) {
         
         let screenWidth = Double(UIScreen.main.bounds.width)

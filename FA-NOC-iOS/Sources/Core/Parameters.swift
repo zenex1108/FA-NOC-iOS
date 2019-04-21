@@ -37,12 +37,15 @@ enum FaStrRefUrl: String {
 
 struct FaUrl {
     
-    static private func makeURL(_ ref:FaStrRefUrl) -> URL {
+    static private func makeURL(_ ref: FaStrRefUrl) -> URL {
         return makeURL(strRef: ref.rawValue)
     }
     
-    static func makeURL(strRef:String) -> URL {
-        return URL(string: "https://www.furaffinity.net\(strRef)")!
+    static func makeStrURL(strRef: String) -> String {
+        return "https://www.furaffinity.net\(strRef)"
+    }
+    static func makeURL(strRef: String) -> URL {
+        return URL(string: makeStrURL(strRef: strRef))!
     }
     
     static let login = makeURL(.login)
@@ -55,11 +58,11 @@ struct FaUrl {
     static let submissions = makeURL(.submissions)
     static let others = makeURL(.others) //journals+watches
     
-    static func user(_ name:String) -> URL {
+    static func user(_ name: String) -> URL {
         return makeURL(strRef: "/user/\(name)")
     }
     
-    static func view(_ postId:String) -> URL {
+    static func view(_ postId: String) -> URL {
         return makeURL(strRef: "/view/\(postId)")
     }
 }

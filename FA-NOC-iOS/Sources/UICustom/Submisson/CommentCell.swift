@@ -31,9 +31,8 @@ class CommentCell: UITableViewCell, CommentCellProtocol {
     
     func bind(_ model: CommentModel) {
         
-        let placeholder = GalleryPlaceholder(width: 40.0,
-                                             heightRatio: 1.0,
-                                             tip: 0.615)
+        let placeholder = #imageLiteral(resourceName: "ic_placeholder").kf.image(withRoundRadius: 24.0, fit: .init(width: 48, height: 48))
+        
         thumbnailImageView.kf
             .setImage(with: model.userThumbnail,
                       placeholder: placeholder,
@@ -43,7 +42,7 @@ class CommentCell: UITableViewCell, CommentCellProtocol {
         
         userNameLabel.text = model.userNickName
         dateLabel.text = model.postedAt.toString("MMM d, yyyy HH:mm a")
-        commentLabel.text = model.comment
+        commentLabel.attributedText = model.comment
     }
 }
 

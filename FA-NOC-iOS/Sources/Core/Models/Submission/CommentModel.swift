@@ -13,7 +13,7 @@ class CommentModel {
     let commentId: String
     let postedAt: Date
     let commentStep: Int
-    let comment: String
+    let comment: NSAttributedString
     
     let userNickName: String
     let userThumbnail: URL
@@ -31,7 +31,7 @@ class CommentModel {
     init(commentId: String,
          postedAt: Date,
          commentStep: Int,
-         comment: String,
+         comment: NSAttributedString,
          userNickName: String,
          userThumbnail: URL,
          userPageLink: URL,

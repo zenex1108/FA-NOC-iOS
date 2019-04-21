@@ -135,6 +135,15 @@ extension SubmissionViewController {
         
         //////////////////////////////////////////////////////////
         
+        tableView.rx.modelSelected(SubmissionModel.self)
+            .subscribe(onNext: { [weak self] model in
+                let viewer: ImageViewerViewController = .loadViewController(.Submission)
+                viewer.model = model
+                self?.navigationController?.pushViewController(viewer, animated: true)
+            }).disposed(by: rx.disposeBag)
+        
+        //////////////////////////////////////////////////////////
+        
         dataRelay
             .map { model -> [SubmissonSection] in
                 return [SubmissonSection(items: [model,model,model,model]),

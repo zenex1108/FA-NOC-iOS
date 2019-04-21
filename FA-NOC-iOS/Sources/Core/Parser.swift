@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftSoup
-
 import RxSwift
 
 class Parser: NSObject {
@@ -139,6 +138,7 @@ class Parser: NSObject {
             let theme = try checkTheme(document)
             
             let originalImageUrl = try document.select("#submissionImg").first()?.attr("src")
+                .addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
             let favUrl = try document.select("a[href^=/fav/\(galleryModel.id!)]").first()?.attr("href")
             
             let keywords = try document.select("a[href^=/search/@keywords]").map{$0.ownText()}
@@ -181,23 +181,12 @@ class Parser: NSObject {
                 submission.favorites = favorites
                 submission.comments = comments
                 
+                let tempDescription = try document.select(".maintable").select(".alt1").get(4)
                 
-                /*
-                 <td valign="top" align="left" width="70%" class="alt1" style="padding:8px">
-                 <a href="/user/teebs13/"><img class="avatar" alt="teebs13" src="//a.facdn.net/1547707248/teebs13.gif"></a>
-                 <br>
-                 <br>/*start*/ A humorous commission I grabbed from weskers during a stream, I don’t think I’ve ever commissioned anything that large in the groin area though lmao. It just kinda happened and honestly whatever, the design itself looks amazing! I just wonder what would trigger such a transformation...
-                 <br>
-                 <br> Art by <a href="/user/weskers" class="iconusername"><img src="//a.facdn.net/20190120/weskers.gif" align="middle" title="Weskers" alt="Weskers"></a>
-                 <br>
-                 <br> Renamon version of my character is mine/*end*/
-                 </td>
-                 */
-                let description = try document.select(".maintable").select(".alt1").get(4)
-                
-                let descriptionHtml = try description.submissionDescription()
-                let avatar = try description.select("a").get(0).outerHtml()
-                submission.description = descriptionHtml.replacingOccurrences(of: avatar, with: "").trimmingCharacters(in: .whitespacesAndNewlines)
+                let descriptionHtml = try tempDescription.outerHtml()
+                let avatar = try tempDescription.select("a").get(0).outerHtml()
+                let description = descriptionHtml.replacingOccurrences(of: avatar, with: "").trimmingCharacters(in: .whitespacesAndNewlines)
+                submission.description = try SwiftSoup.parse(description).body()?.attributedString()
                 
                 let tempCommentList = try document.select(".container-comment")
                 let commentListSet = try CommentModelSet(elements: tempCommentList, theme: theme, url: response.url!)
@@ -242,25 +231,11 @@ class Parser: NSObject {
                 submission.favorites = favorites
                 submission.comments = comments
                 
-                /*
-                 <div class="submission-description-container link-override">
-                 <div class="submission-title">
-                 <h2 class="submission-title-header">Gryphon turned Renadad</h2> Posted
-                 <strong><span title="4 hours ago" class="popup_date">Jan 20th, 2019 06:56 PM</span></strong>
-                 </div>
-                 /*start*/ A humorous commission I grabbed from weskers during a stream, I don’t think I’ve ever commissioned anything that large in the groin area though lmao. It just kinda happened and honestly whatever, the design itself looks amazing! I just wonder what would trigger such a transformation...
-                 <br>
-                 <br> Art by
-                 <a href="/user/weskers" class="iconusername"><img src="//a.facdn.net/20190120/weskers.gif" align="middle" title="Weskers" alt="Weskers"></a>
-                 <br>
-                 <br> Renamon version of my character is mine/*end*/
-                 </div>
-                */
-                let description = try document.select(".submission-description-container")
+                let tempDescription = try document.select(".submission-description-container").get(0)
                 
-                let descriptionHtml = try description.submissionDescription()
-                let titleAndDate = try description.select(".submission-title").outerHtml()
-                submission.description = descriptionHtml.replacingOccurrences(of: titleAndDate, with: "").trimmingCharacters(in: .whitespacesAndNewlines)
+                let descriptionHtml = try tempDescription.outerHtml()
+                let description = descriptionHtml.trimmingCharacters(in: .whitespacesAndNewlines)
+                submission.description = try SwiftSoup.parse(description).body()?.attributedString()
                 
                 let tempCommentList = try document.select("div[class^=comment_container]")
                 let commentListSet = try CommentModelSet(elements: tempCommentList, theme: theme, url: response.url!)
@@ -277,6 +252,50 @@ class Parser: NSObject {
         }
         
         return submission
+    }
+}
+
+
+extension String {
+    
+    var avatarAlt: String {
+        return replacingOccurrences(of:"_", with:"").lowercased()
+    }
+    
+    var smilieToEmoji: String? {
+        
+        switch self {
+        case "tongue"     : return "😛"
+        case "cool"       : return "😎"
+        case "wink"       : return "😉"
+        case "oooh"       : return "😮"
+        case "smile"      : return "🙂"
+        case "evil"       : return "😈"
+        case "huh"        : return "🤔"
+        case "whatever"   : return "🥴"
+        case "angel"      : return "😇"
+        case "badhairday" : return "😕"
+        case "lmao"       : return "😂"
+        case "cd"         : return "💿"
+        case "crying"     : return "😭"
+        case "dunno"      : return "🤨"
+        case "embarrassed": return "😳"
+        case "gift"       : return "🎁"
+        case "coffee"     : return "☕️"
+        case "love"       : return "❤️"
+        case "nerd"       : return "🤓"
+        case "note"       : return "🎶"
+        case "derp"       : return "🤪"
+        case "sarcastic"  : return "😒"
+        case "serious"    : return "😟"
+        case "sad"        : return "☹️"
+        case "sleepy"     : return "😴"
+        case "teeth"      : return "😬"
+        case "veryhappy"  : return "😁"
+        case "yelling"    : return "🤬"
+        case "zipped"     : return "🤐"
+        default           : return nil
+        }
     }
 }
 
@@ -302,94 +321,133 @@ extension Parser {
     }
 }
 
-extension String {
+extension Node {
     
-    var avatarAlt: String {
-        return replacingOccurrences(of:"_", with:"").lowercased()
-    }
-    
-    var replaceEntity: String {
-        return replacingOccurrences(of: "\n<", with: "<")
-            .replacingOccurrences(of: "<br>", with: "\n")
-            .replacingOccurrences(of: "&nbsp;", with: " ")
-            .replacingOccurrences(of: "&lt;", with: "<")
-            .replacingOccurrences(of: "&gt;", with: ">")
-            .replacingOccurrences(of: "&amp;", with: "&")
-            .replacingOccurrences(of: "&quot;", with: "\"")
-            .replacingOccurrences(of: "&apos;", with: "'")
-            .replacingOccurrences(of: "&cent;", with: "¢")
-            .replacingOccurrences(of: "&pound;", with: "£")
-            .replacingOccurrences(of: "&yen;", with: "¥")
-            .replacingOccurrences(of: "&euro;", with: "€")
-            .replacingOccurrences(of: "&copy;", with: "©")
-            .replacingOccurrences(of: "&reg;", with: "®")
-    }
-    
-    var submissionDescription: String {
-        return replaceEntity
-            .replaceEmojis()
-    }
-    
-    var submissionComment: String {
-        return replaceEntity
-            .replaceEmojis()
-    }
-    
-    func replaceEmojis() -> String {
-        return replaceEmojiIcon("tongue", replace: "😛")
-            .replaceEmojiIcon("cool", replace: "😎")
-            .replaceEmojiIcon("wink", replace: "😉")
-            .replaceEmojiIcon("oooh", replace: "😮")
-            .replaceEmojiIcon("smile", replace: "🙂")
-            .replaceEmojiIcon("evil", replace: "😈")
-            .replaceEmojiIcon("huh", replace: "🤔")
-            .replaceEmojiIcon("whatever", replace: "🥴")
-            .replaceEmojiIcon("angel", replace: "😇")
-            .replaceEmojiIcon("badhairday", replace: "😕")
-            .replaceEmojiIcon("lmao", replace: "😂")
-            .replaceEmojiIcon("cd", replace: "💿")
-            .replaceEmojiIcon("crying", replace: "😭")
-            .replaceEmojiIcon("dunno", replace: "🤨")
-            .replaceEmojiIcon("embarrassed", replace: "😳")
-            .replaceEmojiIcon("gift", replace: "🎁")
-            .replaceEmojiIcon("coffee", replace: "☕️")
-            .replaceEmojiIcon("love", replace: "❤️")
-            .replaceEmojiIcon("nerd", replace: "🤓")
-            .replaceEmojiIcon("note", replace: "🎶")
-            .replaceEmojiIcon("derp", replace: "🤪")
-            .replaceEmojiIcon("sarcastic", replace: "😒")
-            .replaceEmojiIcon("serious", replace: "😟")
-            .replaceEmojiIcon("sad", replace: "☹️")
-            .replaceEmojiIcon("sleepy", replace: "😴")
-            .replaceEmojiIcon("teeth", replace: "😬")
-            .replaceEmojiIcon("veryhappy", replace: "😁")
-            .replaceEmojiIcon("yelling", replace: "🤬")
-            .replaceEmojiIcon("zipped", replace: "🤐")
-    }
-    
-    func replaceEmojiIcon(_ tag: String, replace: String) -> String {
-        return replacingOccurrences(of: "<i class=\"smilie \(tag)\"></i>", with: replace)
-    }
-}
+    func attributedString(_ prevLength: Int=0) throws -> NSAttributedString {
+        
+        let mutableAttributedString = NSMutableAttributedString()
+        
+        func currentLength() -> Int {
+            return prevLength + mutableAttributedString.length
+        }
+        
+        
+        if let element = self as? Element {
+            
+            if element.tagName() == "div" {
+                if try element.className() == "submission-title" {
+                    
+                    return mutableAttributedString
+                }
+            }
+        }
+        
+        
+        let childNodes = self.getChildNodes()
+        
+        for childNode in childNodes {
+            let childAttributedString = try childNode.attributedString(currentLength())
+            mutableAttributedString.append(childAttributedString)
+        }
+        
 
-extension Element {
-    
-    func submissionDescription() throws -> String {
-        return try html().submissionDescription
-    }
-    
-    func submissionComment() throws -> String {
-        return try html().submissionComment
-    }
-}
-
-extension Elements {
-    
-    func submissionDescription() throws -> String {
-        return try html().submissionDescription
-    }
-    
-    func submissionComment() throws -> String {
-        return try html().submissionComment
+        if let textNode = self as? TextNode {
+            
+            let text = textNode.text()
+            if text.trimmingCharacters(in: .whitespaces).count > 0 {
+                mutableAttributedString.append(NSAttributedString(string: text))
+            }
+            
+        }else if let element = self as? Element {
+            
+            switch element.tagName() {
+            case "body":
+                
+                mutableAttributedString.append(NSAttributedString(string: "\n"))
+                
+            case "img":
+                
+                let strUrl = try element.attr("src")
+                let addingPercent = "https:\(strUrl)".addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
+                let imageUrl = URL(string: addingPercent!)!
+                
+                let imageAttachment = NSTextAttachment()
+                
+                do{
+                    let data = try Data(contentsOf: imageUrl)
+                    if let image = UIImage(data: data)?.kf.scaled(to: UIScreen.main.scale)
+                        .kf.image(withRoundRadius: 20.0, fit: .init(width: 40, height: 40)) {
+                        imageAttachment.image = image
+                    }
+                }catch{
+                    imageAttachment.image = #imageLiteral(resourceName: "ic_placeholder").kf.image(withRoundRadius: 20.0, fit: .init(width: 40, height: 40))
+                }
+                
+                let imageString = NSAttributedString(attachment: imageAttachment)
+                mutableAttributedString.append(imageString)
+                
+                let stringRange = NSRange(location: 0, length: mutableAttributedString.length)
+                mutableAttributedString.addAttribute(.baselineOffset, value: (16.0-40.0)/2.0, range: stringRange)
+                
+            case "a":
+                
+                let strUrl = try element.attr("href")
+                var addingPercent: String!
+                
+                let isAbsolute = strUrl.hasPrefix("//")
+                if isAbsolute {
+                    addingPercent = "https:\(strUrl)"
+                }else{
+                    addingPercent = FaUrl.makeStrURL(strRef: strUrl)
+                }
+                addingPercent = addingPercent.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
+                
+                let url = URL(string: addingPercent!)!
+                
+                let stringRange = NSRange(location: 0, length: mutableAttributedString.length)
+                mutableAttributedString.addAttributes([.link: url,
+                                                       .font: UIFont.boldSystemFont(ofSize: 16.0),
+                                                       .underlineColor: UIColor.clear],
+                                                      range: stringRange)
+                
+            case "i":
+                
+                let classNames = try element.classNames()
+                
+                if classNames.first == "smilie",
+                    let emoji = classNames.last?.smilieToEmoji {
+                    
+                    let attributed = NSAttributedString(string: emoji)
+                    mutableAttributedString.append(attributed)
+                }
+                
+            case "br":
+                
+                if currentLength() > 0 {
+                    mutableAttributedString.append(NSAttributedString(string: "\n"))
+                }
+                
+            case "div":
+                
+                let className = try element.className()
+                
+                if className == "message-text" {
+                    break
+                }else{
+                    fallthrough
+                }
+                
+            case "span":
+                
+                break
+                
+            default:
+                
+                let outerHtml = try element.outerHtml()
+                mutableAttributedString.append(NSAttributedString(string: outerHtml))
+            }
+        }
+        
+        return mutableAttributedString
     }
 }

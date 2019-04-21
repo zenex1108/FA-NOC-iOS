@@ -15,9 +15,6 @@ class CommentModelSet {
     
     init(elements: Elements, theme: FATheme, url: URL) throws {
         
-//        var parentComment: CommentModel?
-//        var prevComment:CommentModel?
-        
         if theme == .classic {
             
             for element in elements {
@@ -41,7 +38,7 @@ class CommentModelSet {
                 
                 let tempCommentLink = urls[5]
                 
-                let tempComment = try element.select(".message-text").submissionComment()
+                let tempComment = try element.select(".message-text").get(0).attributedString()
                 
                 let tempReply = urls[6]
                 
@@ -83,7 +80,7 @@ class CommentModelSet {
                 
                 let tempCommentLink = urls[3]
                 
-                let tempComment = try element.select(".comment_text").submissionComment()
+                let tempComment = try element.select(".comment_text").get(0).attributedString()
                 
                 let tempReply = urls[7]
                 

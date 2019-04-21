@@ -57,6 +57,7 @@
 		01361D0C21C2B93200E1B3F4 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361D0B21C2B93200E1B3F4 /* Service.swift */; };
 		013C801F21E1C463003C8CBB /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C801E21E1C463003C8CBB /* Scheduler.swift */; };
 		013C802521E1C6E2003C8CBB /* ImageLoadScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C802421E1C6E2003C8CBB /* ImageLoadScheduler.swift */; };
+		0140696E226C890E000154D7 /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0140696D226C890E000154D7 /* ImageViewerViewController.swift */; };
 		017334692191D40800298AB1 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 017334682191D40800298AB1 /* Splash.storyboard */; };
 		0173346B2191D43200298AB1 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0173346A2191D43200298AB1 /* Setting.storyboard */; };
 		0173346D2191D44D00298AB1 /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0173346C2191D44D00298AB1 /* Notification.storyboard */; };
@@ -152,6 +153,7 @@
 		01361D0B21C2B93200E1B3F4 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		013C801E21E1C463003C8CBB /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		013C802421E1C6E2003C8CBB /* ImageLoadScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadScheduler.swift; sourceTree = "<group>"; };
+		0140696D226C890E000154D7 /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
 		017334682191D40800298AB1 /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		0173346A2191D43200298AB1 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		0173346C2191D44D00298AB1 /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				010D62482261E2E800376B72 /* SubmissionViewController.swift */,
+				0140696D226C890E000154D7 /* ImageViewerViewController.swift */,
 			);
 			path = Submission;
 			sourceTree = "<group>";
@@ -876,6 +879,7 @@
 				01038CB921D0B5CA00134308 /* InfinityGalleryCell.swift in Sources */,
 				01361D0621C299B900E1B3F4 /* BaseViewController.swift in Sources */,
 				012C6B5821C93B9B00D15168 /* MainBaseViewController.swift in Sources */,
+				0140696E226C890E000154D7 /* ImageViewerViewController.swift in Sources */,
 				01880C3821F36F8000E8B247 /* SubmissionModel.swift in Sources */,
 				01B878AF2196DE1B00DB88E2 /* ReCaptcha.swift in Sources */,
 				017334792191DDC900298AB1 /* LoginViewController.swift in Sources */,

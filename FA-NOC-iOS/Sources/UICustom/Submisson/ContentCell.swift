@@ -14,6 +14,7 @@ class ContentCell: UITableViewCell, SubmissionCellProtocol {
     
     func bind(_ model: SubmissionModel) {
         
-        contentLabel.text = model.description
+        contentLabel.attributedText = model.description
     }
 }
+

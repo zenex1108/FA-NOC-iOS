@@ -28,7 +28,7 @@ class SubmissionModel {
     
     var userThumbnail: URL!
     
-    var description: String!
+    var description: NSAttributedString!
     
     var commentsSet: CommentModelSet!
     

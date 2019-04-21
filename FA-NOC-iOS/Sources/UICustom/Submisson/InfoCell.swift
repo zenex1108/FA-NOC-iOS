@@ -16,9 +16,8 @@ class InfoCell: UITableViewCell, SubmissionCellProtocol {
     
     func bind(_ model: SubmissionModel) {
         
-        let placeholder = GalleryPlaceholder(width: 48.0,
-                                             heightRatio: 1.0,
-                                             tip: 0.615)
+        let placeholder = #imageLiteral(resourceName: "ic_placeholder").kf.image(withRoundRadius: 24.0, fit: .init(width: 48, height: 48))
+        
         userProfileImageView.kf
             .setImage(with: model.userThumbnail,
                       placeholder: placeholder,

@@ -30,7 +30,6 @@ class KeywordsCell: UITableViewCell, SubmissionCellProtocol {
             return
         }
         
-        
         keywordsView.removeAllTags()
         keywordsView.addTags(model.keywords)
     }
